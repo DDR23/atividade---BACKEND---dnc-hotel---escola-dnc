@@ -103,3 +103,4 @@ comandos usados ate agora:
 npm i -g nestjs/cli
 npm i prisma -D
 npm i --save class-validator class-transformer
+npm i @nestjs/mapped-types
