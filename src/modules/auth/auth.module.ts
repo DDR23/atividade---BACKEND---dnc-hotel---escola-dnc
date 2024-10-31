@@ -6,13 +6,11 @@ import { AuthController } from "./auth.controller";
 
 @Module({
   imports: [
-    JwtModule.register({
-      secret: process.env.JWT_SECRET,
-    }),
+    JwtModule.register({ secret: process.env.JWT_SECRET, }),
     PrismaModule,
   ],
   controllers: [AuthController],
   providers: [AuthService],
   exports: [AuthService]
 })
-export class AuthModule {}
+export class AuthModule { }

@@ -20,7 +20,7 @@ export class AuthService {
 
   async login({ USER_EMAIL, USER_PASSWORD }: AuthLoginDTO): Promise<{ access_token: string }> {
     const user = await this.prisma.user.findUnique({ where: { USER_EMAIL } });
-    if (!user || await bcrypt.compare(USER_PASSWORD, user.USER_PASSWORD)) throw new UnauthorizedException('Email or password is incorrect')
+    if (!user || !(await bcrypt.compare(USER_PASSWORD, user.USER_PASSWORD))) throw new UnauthorizedException('Email or password is incorrect');
     return await this.generateJwtToken(user);
   }
 }

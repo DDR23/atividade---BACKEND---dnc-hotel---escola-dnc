@@ -102,6 +102,7 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 comandos usados ate agora:
 npm i -g nestjs/cli
 npm i prisma -D
+npx prisma generate
 npm i --save class-validator class-transformer
 npm i @nestjs/mapped-types
 npm i bcrypt
