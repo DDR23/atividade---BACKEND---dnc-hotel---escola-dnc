@@ -35,6 +35,10 @@ export class UserService {
     return await this.prisma.user.delete({ where: { id } });
   }
 
+  async findByEmail(USER_EMAIL: string): Promise<User> {
+    return await this.prisma.user.findUnique({ where: { USER_EMAIL } })
+  }
+
   private async isIdExists(id: number): Promise<User> {
     const user = await this.prisma.user.findUnique({ where: { id }, select: userSelectedFields });
     if (!user) throw new NotFoundException('User not found')
