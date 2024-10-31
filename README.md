@@ -106,3 +106,4 @@ npm i --save class-validator class-transformer
 npm i @nestjs/mapped-types
 npm i bcrypt
 npm i @types/bcrypt -D
+npm install @nestjs/jwt @nestjs/passport passport passport-jwt
