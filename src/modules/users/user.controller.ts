@@ -4,8 +4,11 @@ import { ParamId } from "../../shared/decorators/paramId.decorator";
 import { UserCreateDTO } from "./domain/dto/userCreate.dto";
 import { UserUpdateDTO } from "./domain/dto/userUpdate.dto";
 import { AuthGuard } from "../../shared/guards/auth.guard";
+import { Roles } from "src/shared/decorators/roles.decorator";
+import { Role } from "@prisma/client";
+import { RoleGuard } from "src/shared/guards/role.guard";
 
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, RoleGuard)
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) { }
@@ -20,6 +23,7 @@ export class UserController {
     return this.userService.show(id);
   }
 
+  @Roles(Role.ADMIN)
   @Post('create')
   create(@Body() body: UserCreateDTO) {
     return this.userService.create(body);
