@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { PrismaService } from "../prisma/prisma.service";
 import { User } from "@prisma/client";
-import { CreateUserDTO } from "./domain/dto/createUser.dto";
 import { UpdateUserDTO } from "./domain/dto/updateUser.dto";
 import * as bcrypt from "bcrypt"
 import { userSelectedFields } from "../prisma/utils/userSelectFields";
+import { UserCreateDTO } from "./domain/dto/userCreate.dto";
 
 @Injectable()
 export class UserService {
@@ -19,7 +19,7 @@ export class UserService {
     return user;
   }
 
-  async create(body: CreateUserDTO): Promise<User> {
+  async create(body: UserCreateDTO): Promise<User> {
     body.USER_PASSWORD = await this.hashPassword(body.USER_PASSWORD);
     return await this.prisma.user.create({ data: body, select: userSelectedFields })
   }
