@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, Patch, Post } from "@nestjs/common";
 import { UserService } from "./user.service";
-import { UpdateUserDTO } from "./domain/dto/updateUser.dto";
 import { ParamId } from "../shared/decorators/paramId.decorator";
 import { UserCreateDTO } from "./domain/dto/userCreate.dto";
+import { UserUpdateDTO } from "./domain/dto/userUpdate.dto";
 
 @Controller('users')
 export class UserController {
@@ -24,7 +24,7 @@ export class UserController {
   }
 
   @Patch('update/:id')
-  update(@ParamId() id: number, @Body() body: UpdateUserDTO) {
+  update(@ParamId() id: number, @Body() body: UserUpdateDTO) {
     return this.userService.update(id, body)
   }
 
