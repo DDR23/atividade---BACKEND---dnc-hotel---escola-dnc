@@ -7,6 +7,7 @@ import { AuthGuard } from "../../shared/guards/auth.guard";
 import { Roles } from "src/shared/decorators/roles.decorator";
 import { Role } from "@prisma/client";
 import { RoleGuard } from "src/shared/guards/role.guard";
+import { UserMatchGuard } from "src/shared/guards/userMatch.guard";
 
 @UseGuards(AuthGuard, RoleGuard)
 @Controller('users')
@@ -29,11 +30,13 @@ export class UserController {
     return this.userService.create(body);
   }
 
+  @UseGuards(UserMatchGuard)
   @Patch('update/:id')
   update(@ParamId() id: number, @Body() body: UserUpdateDTO) {
     return this.userService.update(id, body)
   }
 
+  @UseGuards(UserMatchGuard)
   @Delete('delete/:id')
   delete(@ParamId() id: number) {
     return this.userService.delete(id)
