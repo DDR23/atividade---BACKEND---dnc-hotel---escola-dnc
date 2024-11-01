@@ -2,7 +2,7 @@ import { forwardRef, MiddlewareConsumer, Module, NestModule, RequestMethod } fro
 import { UserController } from "./user.controller";
 import { UserService } from "./user.service";
 import { PrismaModule } from "../prisma/prisma.module";
-import { UserIdCheckMiddleware } from "../shared/middlewares/userIdCheck.middleware";
+import { UserIdCheckMiddleware } from "../../shared/middlewares/userIdCheck.middleware";
 import { AuthModule } from "../auth/auth.module";
 
 @Module({
