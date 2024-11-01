@@ -2,7 +2,6 @@ import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { Role, User } from "@prisma/client";
 import { AuthLoginDTO } from "./domain/dto/authLogin.dto";
-import { PrismaService } from "../prisma/prisma.service";
 import * as bcrypt from "bcrypt";
 import { UserService } from "../users/user.service";
 import { AuthRegisterDTO } from "./domain/dto/authRegister.dto";
@@ -14,7 +13,6 @@ import { UserCreateDTO } from "../users/domain/dto/userCreate.dto";
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly prisma: PrismaService,
     private readonly userService: UserService,
   ) { }
 
@@ -60,7 +58,7 @@ export class AuthService {
     return token;
   }
 
-  private async validateToken(token: string): Promise<AuthValidateTokenDTO> {
+  async validateToken(token: string): Promise<AuthValidateTokenDTO> {
     try {
       const decoded = await this.jwtService.verifyAsync(token, {
         secret: process.env.JWT_SECRET,

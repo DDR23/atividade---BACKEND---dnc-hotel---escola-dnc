@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Patch, Post, UseGuards } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { ParamId } from "../shared/decorators/paramId.decorator";
 import { UserCreateDTO } from "./domain/dto/userCreate.dto";
 import { UserUpdateDTO } from "./domain/dto/userUpdate.dto";
+import { AuthGuard } from "../shared/guards/auth.guard";
 
+@UseGuards(AuthGuard)
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) { }
