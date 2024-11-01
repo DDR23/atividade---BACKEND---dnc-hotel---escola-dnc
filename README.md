@@ -108,3 +108,4 @@ npm i @nestjs/mapped-types
 npm i bcrypt
 npm i @types/bcrypt -D
 npm install @nestjs/jwt @nestjs/passport passport passport-jwt
+npm install @nestjs/throttler

@@ -8,12 +8,15 @@ import { Roles } from "src/shared/decorators/roles.decorator";
 import { Role } from "@prisma/client";
 import { RoleGuard } from "src/shared/guards/role.guard";
 import { UserMatchGuard } from "src/shared/guards/userMatch.guard";
+import { ThrottlerGuard } from "@nestjs/throttler";
 
-@UseGuards(AuthGuard, RoleGuard)
+@UseGuards(AuthGuard, RoleGuard, ThrottlerGuard)
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) { }
 
+  // @SkipThrottle() // REMOVE O RATE LIMIT DE UMA ROTA
+  // @Throttle({ default: { ttl: 50000, limit: 50 } }) // AUMENTA O RATE LIMIT DE UMA ROTA
   @Get()
   list() {
     return this.userService.list();
