@@ -5,6 +5,8 @@ import * as bcrypt from "bcrypt"
 import { userSelectedFields } from "../prisma/utils/userSelectFields";
 import { UserCreateDTO } from "./domain/dto/userCreate.dto";
 import { UserUpdateDTO } from "./domain/dto/userUpdate.dto";
+import { join, resolve } from "path";
+import { stat, unlink } from "fs/promises";
 
 @Injectable()
 export class UserService {
@@ -45,9 +47,30 @@ export class UserService {
   async create(body: UserCreateDTO): Promise<User> {
     const user = await this.findByEmail(body.USER_EMAIL);
     if (user) throw new BadRequestException('User already exists');
-
     body.USER_PASSWORD = await this.hashPassword(body.USER_PASSWORD);
     return await this.prisma.user.create({ data: body, select: userSelectedFields })
+  }
+
+  /**
+   * Upload a user's avatar.
+   *
+   * @param id The user's ID
+   * @param avatarFileName The uploaded avatar file name
+   *
+   * @throws {NotFoundException} If the user is not found
+   *
+   * @returns The user with the updated avatar
+   */
+  async uploadAvatar(id: number, avatarFileName: string) {
+    const user = await this.isIdExists(id);
+    const directory = resolve(__dirname, '..', '..', '..', 'uploads');
+    if (user.USER_AVATAR) {
+      const userAvatarFilePath = join(directory, user.USER_AVATAR);
+      const userAvatarFileExists = await stat(userAvatarFilePath);
+      if (userAvatarFileExists) await unlink(userAvatarFilePath);
+    }
+    const userUpdated = await this.update(id, { USER_AVATAR: avatarFileName });
+    return userUpdated;
   }
 
   /**

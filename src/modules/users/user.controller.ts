@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Patch, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Patch, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { ParamId } from "../../shared/decorators/paramId.decorator";
 import { UserCreateDTO } from "./domain/dto/userCreate.dto";
@@ -9,6 +9,8 @@ import { Role } from "@prisma/client";
 import { RoleGuard } from "src/shared/guards/role.guard";
 import { UserMatchGuard } from "src/shared/guards/userMatch.guard";
 import { ThrottlerGuard } from "@nestjs/throttler";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { User } from "src/shared/decorators/user.decorator";
 
 @UseGuards(AuthGuard, RoleGuard, ThrottlerGuard)
 @Controller('users')
@@ -54,6 +56,22 @@ export class UserController {
    */
   create(@Body() body: UserCreateDTO) {
     return this.userService.create(body);
+  }
+
+  @Post('avatar')
+  @UseInterceptors(FileInterceptor('USER_AVATAR'))
+  /**
+   * Upload a user's avatar.
+   *
+   * @param id The user's ID
+   * @param avatar The uploaded avatar file
+   *
+   * @throws {NotFoundException} If the user is not found
+   *
+   * @returns The user with the updated avatar
+   */
+  uploadAvatar(@User('id') id: number, @UploadedFile() avatar: Express.Multer.File) {
+    return this.userService.uploadAvatar(id, avatar.filename);
   }
 
   @Patch('update/:id')
