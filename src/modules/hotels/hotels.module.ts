@@ -6,8 +6,11 @@ import { FindHotelByIdService } from './services/findHotelById.service';
 import { FindHotelByNameService } from './services/findHotelByName.service';
 import { FindHotelsService } from './services/findHotels.service';
 import { UpdateHotelService } from './services/updateHotel.service';
+import { HotelsRepositories } from './infra/hotels.repositories';
+import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
+  imports: [PrismaModule],
   controllers: [HotelsController],
   providers: [
     CreateHotelService,
@@ -16,6 +19,10 @@ import { UpdateHotelService } from './services/updateHotel.service';
     FindHotelByNameService,
     FindHotelsService,
     UpdateHotelService,
+    {
+      provide: 'HOTEL_SERVICE_TOKEN',
+      useClass: HotelsRepositories
+    }
   ],
 })
 export class HotelsModule { }

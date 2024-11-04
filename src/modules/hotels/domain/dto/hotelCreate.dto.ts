@@ -1,4 +1,4 @@
-import { IsDecimal, IsNotEmpty, IsNumber, IsString, MaxLength } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString, MaxLength } from "class-validator";
 
 export class CreateHotelDto {
   @IsString()
@@ -12,19 +12,19 @@ export class CreateHotelDto {
   HOTEL_DESCRIPTION: string;
 
   @IsString()
-  @MaxLength(255)
-  HOTEL_IMAGE: string;
-
-  @IsDecimal()
-  @IsNotEmpty()
-  HOTEL_PRICE: number;
-
-  @IsString()
   @IsNotEmpty()
   @MaxLength(255)
   HOTEL_ADDRESS: string;
 
+  @IsString()
+  @MaxLength(255)
+  @IsOptional()
+  HOTEL_IMAGE?: string;
+
   @IsNumber()
   @IsNotEmpty()
-  FK_HOTEL_OWNER_ID: string;
+  HOTEL_PRICE: number;
+
+  @IsNumber()
+  FK_HOTEL_OWNER_ID: number;
 }

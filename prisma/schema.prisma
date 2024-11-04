@@ -37,9 +37,9 @@ model Hotel {
   HOTEL_NAME        String
   HOTEL_DESCRIPTION String
   HOTEL_ADDRESS     String
-  HOTEL_IMAGE       String
+  HOTEL_IMAGE       String?
   HOTEL_PRICE       Float
-  FK_HOTEL_OWNER_ID     Int
+  FK_HOTEL_OWNER_ID Int
   HOTEL_OWNER       User     @relation(fields: [FK_HOTEL_OWNER_ID], references: [id])
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
