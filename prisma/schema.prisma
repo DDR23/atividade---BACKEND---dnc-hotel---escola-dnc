@@ -24,6 +24,7 @@ model User {
   USER_EMAIL    String   @unique
   USER_PASSWORD String
   USER_ROLE     Role     @default(USER)
+  USER_AVATAR   String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
