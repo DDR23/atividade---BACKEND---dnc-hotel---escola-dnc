@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Patch, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Body, Controller, Delete, FileTypeValidator, Get, MaxFileSizeValidator, ParseFilePipe, Patch, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { ParamId } from "../../shared/decorators/paramId.decorator";
 import { UserCreateDTO } from "./domain/dto/userCreate.dto";
@@ -11,6 +11,7 @@ import { UserMatchGuard } from "src/shared/guards/userMatch.guard";
 import { ThrottlerGuard } from "@nestjs/throttler";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { User } from "src/shared/decorators/user.decorator";
+import { FileValidationInterceptor } from "src/shared/interceptors/fileValidation.interceptor";
 
 @UseGuards(AuthGuard, RoleGuard, ThrottlerGuard)
 @Controller('users')
@@ -59,7 +60,7 @@ export class UserController {
   }
 
   @Post('avatar')
-  @UseInterceptors(FileInterceptor('USER_AVATAR'))
+  @UseInterceptors(FileInterceptor('USER_AVATAR'), FileValidationInterceptor)
   /**
    * Upload a user's avatar.
    *
@@ -70,7 +71,21 @@ export class UserController {
    *
    * @returns The user with the updated avatar
    */
-  uploadAvatar(@User('id') id: number, @UploadedFile() avatar: Express.Multer.File) {
+  uploadAvatar(
+    @User('id') id: number,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({
+            fileType: 'image/*',
+          }),
+          new MaxFileSizeValidator({
+            maxSize: 50 * 1024,
+          })
+        ],
+      }),
+    ) avatar: Express.Multer.File
+  ) {
     return this.userService.uploadAvatar(id, avatar.filename);
   }
 
