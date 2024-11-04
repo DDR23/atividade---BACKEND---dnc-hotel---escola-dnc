@@ -13,8 +13,8 @@ import { FileInterceptor } from "@nestjs/platform-express";
 import { User } from "src/shared/decorators/user.decorator";
 import { FileValidationInterceptor } from "src/shared/interceptors/fileValidation.interceptor";
 
-@UseGuards(AuthGuard, RoleGuard, ThrottlerGuard)
 @Controller('users')
+@UseGuards(AuthGuard, RoleGuard, ThrottlerGuard)
 export class UserController {
   constructor(private userService: UserService) { }
 

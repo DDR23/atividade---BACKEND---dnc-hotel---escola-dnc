@@ -9,9 +9,10 @@ import { UpdateHotelService } from './services/updateHotel.service';
 import { HotelsRepositories } from './infra/hotels.repositories';
 import { PrismaModule } from '../prisma/prisma.module';
 import { FindHotelByOwnerService } from './services/findHotelByOwner.service';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, AuthModule],
   controllers: [HotelsController],
   providers: [
     CreateHotelService,
