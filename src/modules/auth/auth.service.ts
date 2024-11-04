@@ -8,18 +8,22 @@ import { AuthRegisterDTO } from "./domain/dto/authRegister.dto";
 import { AuthResetPasswordDTO } from "./domain/dto/authResetPassword.dto";
 import { AuthValidateTokenDTO } from "./domain/dto/authValidateToken.dto";
 import { UserCreateDTO } from "../users/domain/dto/userCreate.dto";
+import { MailerService } from "@nestjs-modules/mailer";
+import { templateHTML } from "./utils/templateHTML";
 
 @Injectable()
 export class AuthService {
   /**
    * Constructs an instance of AuthService.
    *
-   * @param jwtService - The JwtService used for generating and validating JWT tokens.
-   * @param userService - The UserService used for user-related operations.
+   * @param jwtService - The JwtService used to generate JSON Web Tokens (JWTs).
+   * @param userService - The UserService used to interact with the user database.
+   * @param mailerService - The MailerService used to send emails to users.
    */
   constructor(
     private readonly jwtService: JwtService,
     private readonly userService: UserService,
+    private readonly mailerService: MailerService,
   ) { }
 
   /**
@@ -92,20 +96,24 @@ export class AuthService {
   }
 
   /**
-   * Forgot password endpoint.
+   * Sends a password recovery email to the user.
    *
-   * @param {string} email - The user's email to receive the recovery token.
-   * 
-   * @returns A promise of an object containing the access token as a string.
+   * @param email The user's email address to receive the recovery token.
    *
    * @throws {UnauthorizedException} If the email is incorrect.
+   *
+   * @returns A string indicating that a verification code has been sent to the email.
    */
-  async forgot(email: string): Promise<{ access_token: string }> {
+  async forgot(email: string): Promise<string> {
     const user = await this.userService.findByEmail(email);
     if (!user) throw new UnauthorizedException('Email is incorrect');
-    const token = this.generateJwtToken(user, '30m')
-    //logica de disparo de email de recuperação de senha
-    return token;
+    const token = await this.generateJwtToken(user, '30m')
+    await this.mailerService.sendMail({
+      to: user.USER_EMAIL,
+      subject: 'Password recodery - DNC Hotel',
+      html: templateHTML(user.USER_NAME, token.access_token),
+    });
+    return `A verification code has been sent to ${email}`;
   }
 
   /**

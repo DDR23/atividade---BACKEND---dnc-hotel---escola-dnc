@@ -109,3 +109,4 @@ npm i bcrypt
 npm i @types/bcrypt -D
 npm install @nestjs/jwt @nestjs/passport passport passport-jwt
 npm install @nestjs/throttler
+npm i --save @nestjs-modules/mailer nodemailer
