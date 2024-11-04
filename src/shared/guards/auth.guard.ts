@@ -4,11 +4,23 @@ import { UserService } from "src/modules/users/user.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+/**
+ * Constructs an instance of AuthGuard.
+ * 
+ * @param authService - The AuthService used to validate JWT tokens.
+ * @param userService - The UserService used to retrieve user information.
+ */
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService
   ) { }
 
+  /**
+   * Checks if the Authorization Bearer token is valid and the user exists.
+   * 
+   * @param context - The ExecutionContext containing the request
+   * @returns A boolean indicating whether the operation is allowed
+   */
   async canActivate(context: ExecutionContext) {
     const request = context.switchToHttp().getRequest();
     const { authorization } = request.headers;

@@ -15,6 +15,12 @@ import { AuthModule } from "../auth/auth.module";
   exports: [UserService],
 })
 export class UserModule implements NestModule {
+  /**
+   * Configures the middleware consumer to apply the UserIdCheckMiddleware
+   * to all routes that contain a user ID in the path.
+   *
+   * @param consumer the middleware consumer
+   */
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(UserIdCheckMiddleware).forRoutes(
       { path: 'users/:id', method: RequestMethod.GET },
