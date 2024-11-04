@@ -8,6 +8,6 @@ export interface IHotelRepository {
   findHotelByOwner(ownerId: number): Promise<Hotel[]>;
   findHotelById(id: number): Promise<Hotel | null>;
   findHotels(): Promise<Hotel[]>;
-  updateHotel(id: number, data: UpdateHotelDto):  Promise<Hotel>;
+  updateHotel(id: number, data: UpdateHotelDto): Promise<Hotel>;
   // deleteHotel(id: number): Promise<Hotel>;
 }

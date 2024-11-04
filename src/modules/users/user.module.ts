@@ -15,13 +15,6 @@ import { v4 as uuidv4 } from 'uuid';
     MulterModule.register({
       storage: diskStorage({
         destination: './uploads',
-        /**
-         * Generates a unique filename for the uploaded file by appending a UUID to the original file name.
-         *
-         * @param _req - The request object (not used in this function)
-         * @param file - The uploaded file object containing the original file name
-         * @param cb - The callback function to return the generated filename
-         */
         filename: (_req, file, cb) => {
           const filename = `${uuidv4()}${file.originalname}`;
           return cb(null, filename);
@@ -34,12 +27,6 @@ import { v4 as uuidv4 } from 'uuid';
   exports: [UserService],
 })
 export class UserModule implements NestModule {
-  /**
-   * Configures the middleware consumer to apply the UserIdCheckMiddleware
-   * to all routes that contain a user ID in the path.
-   *
-   * @param consumer the middleware consumer
-   */
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(UserIdCheckMiddleware).forRoutes(
       { path: 'users/:id', method: RequestMethod.GET },

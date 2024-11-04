@@ -30,59 +30,27 @@ export class HotelsController {
 
   @Post('create')
   @Roles(Role.ADMIN)
-  /**
-   * Creates a new hotel.
-   *
-   * @param createHotelDto The information to create a new hotel.
-   * @returns The created hotel.
-   */
   create(@Body() createHotelDto: CreateHotelDto) {
     return this.createHotelService.execute(createHotelDto);
   }
 
   @Get('name')
-  /**
-   * Finds a hotel by its name.
-   *
-   * @param name The name of the hotel to be found
-   *
-   * @returns The found hotel or null if not found
-   */
   findByName(@Query('name') name: string) {
     return this.findHotelByNameService.execute(name);
   }
 
   @Get('owner/:id')
   @Roles(Role.ADMIN)
-  /**
-   * Finds hotels owned by a specific user.
-   *
-   * @param id The ID of the owner whose hotels are to be found.
-   *
-   * @returns An array of hotels owned by the specified user.
-   */
   findByOwner(@ParamId() id: number) {
     return this.findHotelByOwnerService.execute(id);
   }
 
   @Get(':id')
-  /**
-   * Finds a hotel by its ID.
-   *
-   * @param id The ID of the hotel to be found
-   *
-   * @returns The found hotel or null if not found
-   */
   findById(@ParamId() id: number) {
     return this.findHotelByIdService.execute(id);
   }
 
   @Get()
-  /**
-   * Finds all hotels.
-   *
-   * @returns An array of all hotels.
-   */
   findAll() {
     return this.findHotelsService.execute();
   }
@@ -90,14 +58,6 @@ export class HotelsController {
   @Patch(':id')
   @Roles(Role.ADMIN)
   @UseGuards(OwnerHotelGuard)
-  /**
-   * Updates a hotel with the given data.
-   *
-   * @param id The ID of the hotel to be updated
-   * @param updateHotelDto The data to update the hotel with
-   *
-   * @returns The updated hotel
-   */
   update(@ParamId() id: number, @Body() updateHotelDto: UpdateHotelDto) {
     return this.updateHotelService.execute(id, updateHotelDto);
   }

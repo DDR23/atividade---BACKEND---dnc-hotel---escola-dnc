@@ -3,13 +3,6 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 // import { LoggingInterceptor } from './modules/shared/interceptors/logging.interceptor';
 
-/**
- * Bootstrap function, responsible for creating the NestJS application and applying the following settings:
- * - ValidationPipe is used as a global pipe to validate all incoming requests
- * - CORS is enabled with no specific options
- * - LoggingInterceptor is not enabled by default
- * - Listens to the PORT environment variable or 3000 by default
- */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());

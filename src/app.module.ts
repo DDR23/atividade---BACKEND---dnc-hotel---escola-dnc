@@ -11,21 +11,15 @@ import { HotelsModule } from './modules/hotels/hotels.module';
     PrismaModule,
     UserModule,
     AuthModule,
-    ThrottlerModule.forRoot([
-      { ttl: 5000, limit: 5 },
-    ]),
+    ThrottlerModule.forRoot([{ ttl: 5000, limit: 5 }]),
     MailerModule.forRoot({
       transport: process.env.SMTP,
-      defaults: {
-        from: `"dnc_hotel" <${process.env.EMAIL_USER}>`
-      },
+      defaults: { from: `"dnc_hotel" <${process.env.EMAIL_USER}>` },
     }),
     HotelsModule,
   ],
   // controllers: [], //nao utilizado aqui
-  providers: [
-    { provide: 'APP_GUARD', useClass: ThrottlerGuard },
-  ],
+  providers: [{ provide: 'APP_GUARD', useClass: ThrottlerGuard }],
   // exports: [], //nao utilizado aqui
 })
 export class AppModule { }
