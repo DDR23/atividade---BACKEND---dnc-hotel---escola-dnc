@@ -6,7 +6,7 @@ import { CreateHotelService } from '../services/createHotel.service';
 import { FindHotelByNameService } from '../services/findHotelByName.service';
 import { FindHotelByOwnerService } from '../services/findHotelByOwner.service';
 import { FindHotelByIdService } from '../services/findHotelById.service';
-// import { FindHotelsService } from '../services/findHotels.service';
+import { FindHotelsService } from '../services/findHotels.service';
 // import { UpdateHotelService } from '../services/updateHotel.service';
 // import { DeleteHotelService } from '../services/deletedhotel.service';
 
@@ -17,7 +17,7 @@ export class HotelsController {
     private readonly findHotelByNameService: FindHotelByNameService,
     private readonly findHotelByOwnerService: FindHotelByOwnerService,
     private readonly findHotelByIdService: FindHotelByIdService,
-    // private readonly findHotelsService: FindHotelsService,
+    private readonly findHotelsService: FindHotelsService,
     // private readonly updateHotelService: UpdateHotelService,
     // private readonly deleteHotelService: DeleteHotelService,
   ) { }
@@ -70,8 +70,13 @@ export class HotelsController {
   }
 
   @Get()
+  /**
+   * Finds all hotels.
+   *
+   * @returns An array of all hotels.
+   */
   findAll() {
-    // return this.findHotelsService.execute();
+    return this.findHotelsService.execute();
   }
 
   @Patch(':id')

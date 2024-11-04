@@ -59,9 +59,14 @@ export class HotelsRepositories implements IHotelRepository {
     return this.prisma.hotel.findUnique({ where: { id } });
   }
 
-  // findHotels(): Promise<Hotel[]> {
-  //   throw new Error("Method not implemented.");
-  // }
+  /**
+   * Retrieves a list of all hotels.
+   *
+   * @returns A promise that resolves to an array of hotels.
+   */
+  findHotels(): Promise<Hotel[]> {
+    return this.prisma.hotel.findMany()
+  }
 
   // updateHotel(id: number, data: CreateHotelDto): Promise<Hotel> {
   //   throw new Error("Method not implemented.");
