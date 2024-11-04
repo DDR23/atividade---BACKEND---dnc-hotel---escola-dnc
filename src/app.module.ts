@@ -4,6 +4,7 @@ import { UserModule } from './modules/users/user.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { HotelsModule } from './modules/hotels/hotels.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
         from: `"dnc_hotel" <${process.env.EMAIL_USER}>`
       },
     }),
+    HotelsModule,
   ],
   // controllers: [], //nao utilizado aqui
   providers: [
