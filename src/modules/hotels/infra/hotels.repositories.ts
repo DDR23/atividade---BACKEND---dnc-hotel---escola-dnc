@@ -18,12 +18,19 @@ export class HotelsRepositories implements IHotelRepository {
    * @returns The created hotel
    */
   createHotel(data: CreateHotelDto): Promise<Hotel> {
-    return this.prisma.hotel.create({ data })
+    return this.prisma.hotel.create({ data });
   }
 
-  // findHotelById(id: number): Promise<Hotel | null> {
-  //   throw new Error("Method not implemented.");
-  // }
+  /**
+   * Finds a hotel by its ID.
+   *
+   * @param id The ID of the hotel to be found
+   *
+   * @returns The found hotel or null if not found
+   */
+  findHotelById(id: number): Promise<Hotel | null> {
+    return this.prisma.hotel.findUnique({ where: { id } });
+  }
 
   // findHotelByName(name: string): Promise<Hotel | null> {
   //   throw new Error("Method not implemented.");

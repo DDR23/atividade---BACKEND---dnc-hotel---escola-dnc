@@ -2,17 +2,17 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { CreateHotelDto } from '../domain/dto/hotelCreate.dto';
 import { UpdateHotelDto } from '../domain/dto/hotelUpdate.dto';
 import { CreateHotelService } from '../services/createHotel.service';
-// import { DeleteHotelService } from '../services/deletedhotel.service';
-// import { FindHotelByIdService } from '../services/findHotelById.service';
+import { FindHotelByIdService } from '../services/findHotelById.service';
 // import { FindHotelByNameService } from '../services/findHotelByName.service';
 // import { FindHotelsService } from '../services/findHotels.service';
 // import { UpdateHotelService } from '../services/updateHotel.service';
+// import { DeleteHotelService } from '../services/deletedhotel.service';
 
 @Controller('hotels')
 export class HotelsController {
   constructor(
     private readonly createHotelService: CreateHotelService,
-    // private readonly findHotelByIdService: FindHotelByIdService,
+    private readonly findHotelByIdService: FindHotelByIdService,
     // private readonly findHotelByNameService: FindHotelByNameService,
     // private readonly findHotelsService: FindHotelsService,
     // private readonly updateHotelService: UpdateHotelService,
@@ -31,8 +31,15 @@ export class HotelsController {
   }
 
   @Get(':id')
+  /**
+   * Finds a hotel by its ID.
+   *
+   * @param id The ID of the hotel to be found
+   *
+   * @returns The found hotel or null if not found
+   */
   findById(@Param('id') id: string) {
-    // return this.findHotelByIdService.execute(+id);
+    return this.findHotelByIdService.execute(+id);
   }
 
   @Get(':name')
