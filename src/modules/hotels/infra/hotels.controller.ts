@@ -13,7 +13,7 @@ import { FindHotelByIdService } from '../services/findHotelById.service';
 import { FindHotelsService } from '../services/findHotels.service';
 import { OwnerHotelGuard } from 'src/shared/guards/ownerHotel.guard';
 import { UpdateHotelService } from '../services/updateHotel.service';
-// import { DeleteHotelService } from '../services/deletedhotel.service';
+import { DeleteHotelService } from '../services/deletedhotel.service';
 
 @Controller('hotels')
 @UseGuards(AuthGuard, RoleGuard)
@@ -25,7 +25,7 @@ export class HotelsController {
     private readonly findHotelByIdService: FindHotelByIdService,
     private readonly findHotelsService: FindHotelsService,
     private readonly updateHotelService: UpdateHotelService,
-    // private readonly deleteHotelService: DeleteHotelService,
+    private readonly deleteHotelService: DeleteHotelService,
   ) { }
 
   @Post('create')
@@ -66,6 +66,6 @@ export class HotelsController {
   @Roles(Role.ADMIN)
   @UseGuards(OwnerHotelGuard)
   remove(@ParamId() id: number) {
-    // return this.deleteHotelService.execute(id);
+    return this.deleteHotelService.execute(id);
   }
 }

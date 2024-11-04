@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { HotelsController } from './infra/hotels.controller';
 import { CreateHotelService } from './services/createHotel.service';
 import { DeleteHotelService } from './services/deletedhotel.service';
@@ -10,9 +10,14 @@ import { HotelsRepositories } from './infra/hotels.repositories';
 import { PrismaModule } from '../prisma/prisma.module';
 import { FindHotelByOwnerService } from './services/findHotelByOwner.service';
 import { AuthModule } from '../auth/auth.module';
+import { UserModule } from '../users/user.module';
 
 @Module({
-  imports: [PrismaModule, AuthModule],
+  imports: [
+    PrismaModule,
+    AuthModule,
+    UserModule,
+  ],
   controllers: [HotelsController],
   providers: [
     CreateHotelService,
