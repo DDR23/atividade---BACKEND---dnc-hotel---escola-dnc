@@ -25,6 +25,7 @@ model User {
   USER_PASSWORD String
   USER_ROLE     Role     @default(USER)
   USER_AVATAR   String?
+  USER_HOTELS   Hotel[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
@@ -38,6 +39,8 @@ model Hotel {
   HOTEL_ADDRESS     String
   HOTEL_IMAGE       String
   HOTEL_PRICE       Float
+  FK_HOTEL_OWNER_ID     Int
+  HOTEL_OWNER       User     @relation(fields: [FK_HOTEL_OWNER_ID], references: [id])
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
 
