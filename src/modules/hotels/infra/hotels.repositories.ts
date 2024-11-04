@@ -20,6 +20,22 @@ export class HotelsRepositories implements IHotelRepository {
   createHotel(data: CreateHotelDto): Promise<Hotel> {
     return this.prisma.hotel.create({ data });
   }
+  
+  /**
+   * Finds a hotel by its name.
+   *
+   * The search is case-insensitive and will search for the given name
+   * anywhere in the hotel's name. If the hotel is not found, null is returned.
+   *
+   * @param name The name of the hotel to be found
+   *
+   * @returns The found hotel or null if not found
+   */
+  findHotelByName(name: string): Promise<Hotel | null> {
+    return this.prisma.hotel.findFirst({
+      where: { HOTEL_NAME: { contains: name, mode: 'insensitive' } }
+    });
+  }
 
   /**
    * Finds a hotel by its ID.
@@ -31,10 +47,6 @@ export class HotelsRepositories implements IHotelRepository {
   findHotelById(id: number): Promise<Hotel | null> {
     return this.prisma.hotel.findUnique({ where: { id } });
   }
-
-  // findHotelByName(name: string): Promise<Hotel | null> {
-  //   throw new Error("Method not implemented.");
-  // }
 
   // findHotels(): Promise<Hotel[]> {
   //   throw new Error("Method not implemented.");
