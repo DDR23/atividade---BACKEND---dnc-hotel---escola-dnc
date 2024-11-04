@@ -8,6 +8,7 @@ import { FindHotelsService } from './services/findHotels.service';
 import { UpdateHotelService } from './services/updateHotel.service';
 import { HotelsRepositories } from './infra/hotels.repositories';
 import { PrismaModule } from '../prisma/prisma.module';
+import { FindHotelByOwnerService } from './services/findHotelByOwner.service';
 
 @Module({
   imports: [PrismaModule],
@@ -15,8 +16,9 @@ import { PrismaModule } from '../prisma/prisma.module';
   providers: [
     CreateHotelService,
     DeleteHotelService,
-    FindHotelByIdService,
     FindHotelByNameService,
+    FindHotelByOwnerService,
+    FindHotelByIdService,
     FindHotelsService,
     UpdateHotelService,
     {

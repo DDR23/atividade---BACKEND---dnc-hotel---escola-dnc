@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete, Query } from '@nestjs/common';
 import { CreateHotelDto } from '../domain/dto/hotelCreate.dto';
 import { UpdateHotelDto } from '../domain/dto/hotelUpdate.dto';
+import { ParamId } from 'src/shared/decorators/paramId.decorator';
 import { CreateHotelService } from '../services/createHotel.service';
 import { FindHotelByNameService } from '../services/findHotelByName.service';
+import { FindHotelByOwnerService } from '../services/findHotelByOwner.service';
 import { FindHotelByIdService } from '../services/findHotelById.service';
 // import { FindHotelsService } from '../services/findHotels.service';
 // import { UpdateHotelService } from '../services/updateHotel.service';
@@ -13,6 +15,7 @@ export class HotelsController {
   constructor(
     private readonly createHotelService: CreateHotelService,
     private readonly findHotelByNameService: FindHotelByNameService,
+    private readonly findHotelByOwnerService: FindHotelByOwnerService,
     private readonly findHotelByIdService: FindHotelByIdService,
     // private readonly findHotelsService: FindHotelsService,
     // private readonly updateHotelService: UpdateHotelService,
@@ -41,7 +44,19 @@ export class HotelsController {
   findByName(@Query('name') name: string) {
     return this.findHotelByNameService.execute(name);
   }
-  
+
+  @Get('owner/:id')
+  /**
+   * Finds hotels owned by a specific user.
+   *
+   * @param id The ID of the owner whose hotels are to be found.
+   *
+   * @returns An array of hotels owned by the specified user.
+   */
+  findByOwner(@ParamId() id: number) {
+    return this.findHotelByOwnerService.execute(id);
+  }
+
   @Get(':id')
   /**
    * Finds a hotel by its ID.
@@ -50,8 +65,8 @@ export class HotelsController {
    *
    * @returns The found hotel or null if not found
    */
-  findById(@Param('id') id: string) {
-    return this.findHotelByIdService.execute(+id);
+  findById(@ParamId() id: number) {
+    return this.findHotelByIdService.execute(id);
   }
 
   @Get()
@@ -60,12 +75,12 @@ export class HotelsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateHotelDto: UpdateHotelDto) {
-    // return this.updateHotelService.execute(+id, updateHotelDto);
+  update(@ParamId() id: number, @Body() updateHotelDto: UpdateHotelDto) {
+    // return this.updateHotelService.execute(id, updateHotelDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    // return this.deleteHotelService.execute(+id);
+  remove(@ParamId() id: number) {
+    // return this.deleteHotelService.execute(id);
   }
 }

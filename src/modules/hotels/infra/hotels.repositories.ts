@@ -20,7 +20,7 @@ export class HotelsRepositories implements IHotelRepository {
   createHotel(data: CreateHotelDto): Promise<Hotel> {
     return this.prisma.hotel.create({ data });
   }
-  
+
   /**
    * Finds a hotel by its name.
    *
@@ -31,10 +31,21 @@ export class HotelsRepositories implements IHotelRepository {
    *
    * @returns The found hotel or null if not found
    */
-  findHotelByName(name: string): Promise<Hotel | null> {
-    return this.prisma.hotel.findFirst({
+  findHotelByName(name: string): Promise<Hotel[] | null> {
+    return this.prisma.hotel.findMany({
       where: { HOTEL_NAME: { contains: name, mode: 'insensitive' } }
     });
+  }
+
+  /**
+   * Finds all hotels owned by the given user.
+   *
+   * @param ownerId The ID of the user who owns the hotels
+   *
+   * @returns An array of hotels owned by the given user
+   */
+  findHotelByOwner(ownerId: number): Promise<Hotel[]> {
+    return this.prisma.hotel.findMany({ where: { FK_HOTEL_OWNER_ID: ownerId } });
   }
 
   /**
