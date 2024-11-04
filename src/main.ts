@@ -12,9 +12,7 @@ import { ValidationPipe } from '@nestjs/common';
  */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
   app.useGlobalPipes(new ValidationPipe());
-
   app.enableCors({
     // EXEMPLOS DE OPTIONS DO CORS
     // origin: 'http://localhost:3000',
@@ -22,7 +20,6 @@ async function bootstrap() {
     // allowedHeaders: 'Content-Type, Accept',
     // credentials: true,
   });
-
   // app.useGlobalInterceptors(new LoggingInterceptor());
   await app.listen(process.env.PORT ?? 3000);
 }

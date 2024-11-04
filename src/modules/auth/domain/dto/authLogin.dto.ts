@@ -5,7 +5,7 @@ export class AuthLoginDTO {
   @IsNotEmpty()
   @IsEmail()
   USER_EMAIL: string;
-  
+
   @IsString()
   @IsNotEmpty()
   USER_PASSWORD: string;

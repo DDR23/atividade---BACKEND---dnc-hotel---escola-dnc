@@ -41,8 +41,8 @@ export class UserController {
     return this.userService.show(id);
   }
 
-  @Roles(Role.ADMIN)
   @Post('create')
+  @Roles(Role.ADMIN)
   /**
    * Create a new user.
    *
@@ -56,8 +56,8 @@ export class UserController {
     return this.userService.create(body);
   }
 
-  @UseGuards(UserMatchGuard)
   @Patch('update/:id')
+  @UseGuards(UserMatchGuard)
   /**
    * Update a user.
    *
@@ -72,8 +72,8 @@ export class UserController {
     return this.userService.update(id, body)
   }
 
-  @UseGuards(UserMatchGuard)
   @Delete('delete/:id')
+  @UseGuards(UserMatchGuard)
   /**
    * Delete a user by their ID.
    *

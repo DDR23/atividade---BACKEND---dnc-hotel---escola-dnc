@@ -4,12 +4,12 @@ import { UserService } from "src/modules/users/user.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-/**
- * Constructs an instance of AuthGuard.
- * 
- * @param authService - The AuthService used to validate JWT tokens.
- * @param userService - The UserService used to retrieve user information.
- */
+  /**
+   * Constructs an instance of AuthGuard.
+   * 
+   * @param authService - The AuthService used to validate JWT tokens.
+   * @param userService - The UserService used to retrieve user information.
+   */
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService
@@ -26,14 +26,11 @@ export class AuthGuard implements CanActivate {
     const { authorization } = request.headers;
     if (!authorization || !authorization.startsWith('Bearer ')) throw new UnauthorizedException('Invalid Token');
     const token = authorization.split(' ')[1];
-
     const { valid, decoded } = await this.authService.validateToken(token);
     if (!valid) throw new UnauthorizedException('Invalid Token');
-
     const user = await this.userService.show(Number(decoded.sub));
     if (!user) return false;
     request.user = user;
-
     return true;
   }
 }
