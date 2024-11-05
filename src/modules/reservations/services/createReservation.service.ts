@@ -5,7 +5,7 @@ import { IReservationRepositories } from '../domain/repositories/IReservation.re
 import { IHotelRepositories } from 'src/modules/hotels/domain/repositories/IHotel.repositories';
 import { MailerService } from '@nestjs-modules/mailer';
 import { UserService } from 'src/modules/users/user.service';
-import { templateHTML } from '../utils/templateHTML';
+import { createOwnerEmail, createUserEmail } from '../utils/templateHTML';
 
 @Injectable()
 export class CreateReservationService {
@@ -37,7 +37,13 @@ export class CreateReservationService {
     await this.mailerService.sendMail({
       to: hotelOwner.USER_EMAIL,
       subject: 'Pending Reservation Approval',
-      html: templateHTML(hotelOwner.USER_NAME),
+      html: createOwnerEmail(hotelOwner.USER_NAME),
+    })
+    const user = await this.userService.show(id);
+    await this.mailerService.sendMail({
+      to: user.USER_EMAIL,
+      subject: 'Pending Reservation Approval',
+      html: createUserEmail(user.USER_NAME),
     })
     return await this.reservationRepositories.createReservation(newReservation)
   }
