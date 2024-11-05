@@ -44,6 +44,10 @@ export class HotelsRepositories implements IHotelRepository {
     return this.prisma.hotel.update({ where: { id }, data });
   }
 
+  uploadImageHotel(id: number, data: UpdateHotelDto): Promise<Hotel> {
+    return this.prisma.hotel.update({ where: { id }, data });
+  }
+
   deleteHotel(id: number): Promise<Hotel> {
     return this.prisma.hotel.delete({ where: { id } })
   }

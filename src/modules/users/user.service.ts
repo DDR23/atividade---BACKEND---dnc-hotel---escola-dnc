@@ -32,7 +32,7 @@ export class UserService {
 
   async uploadAvatar(id: number, avatarFileName: string) {
     const user = await this.isIdExists(id);
-    const directory = resolve(__dirname, '..', '..', '..', 'uploads');
+    const directory = resolve(__dirname, '..', '..', '..', 'uploads', 'users');
     if (user.USER_AVATAR) {
       const userAvatarFilePath = join(directory, user.USER_AVATAR);
       const userAvatarFileExists = await stat(userAvatarFilePath);

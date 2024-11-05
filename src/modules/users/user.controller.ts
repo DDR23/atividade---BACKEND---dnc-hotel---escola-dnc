@@ -49,7 +49,7 @@ export class UserController {
           new MaxFileSizeValidator({ maxSize: 50 * 1024 })
         ],
       }),
-    ) avatar: Express.Multer.File
+    ) avatar: Express.Multer.File,
   ) {
     return this.userService.uploadAvatar(id, avatar.filename);
   }

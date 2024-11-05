@@ -10,5 +10,6 @@ export interface IHotelRepository {
   findHotels(offSet: number, limit: number): Promise<Hotel[]>;
   countHotels(): Promise<number>;
   updateHotel(id: number, data: UpdateHotelDto): Promise<Hotel>;
+  uploadImageHotel(id: number, data: UpdateHotelDto): Promise<Hotel>;
   deleteHotel(id: number): Promise<Hotel>;
 }

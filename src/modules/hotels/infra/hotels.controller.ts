@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Delete, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Delete, Query, UseGuards, Param, UploadedFile, ParseFilePipe, FileTypeValidator, MaxFileSizeValidator, UseInterceptors } from '@nestjs/common';
 import { CreateHotelDto } from '../domain/dto/hotelCreate.dto';
 import { UpdateHotelDto } from '../domain/dto/hotelUpdate.dto';
 import { ParamId } from 'src/shared/decorators/paramId.decorator';
@@ -6,15 +6,18 @@ import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { RoleGuard } from 'src/shared/guards/role.guard';
 import { Roles } from 'src/shared/decorators/roles.decorator';
 import { Role } from '@prisma/client';
+import { User } from 'src/shared/decorators/user.decorator';
+import { OwnerHotelGuard } from 'src/shared/guards/ownerHotel.guard';
 import { CreateHotelService } from '../services/createHotel.service';
 import { FindHotelByNameService } from '../services/findHotelByName.service';
 import { FindHotelByOwnerService } from '../services/findHotelByOwner.service';
 import { FindHotelByIdService } from '../services/findHotelById.service';
 import { FindHotelsService } from '../services/findHotels.service';
-import { OwnerHotelGuard } from 'src/shared/guards/ownerHotel.guard';
 import { UpdateHotelService } from '../services/updateHotel.service';
+import { UploadImageHotelService } from '../services/uploadImageHotel.service';
 import { DeleteHotelService } from '../services/deletedhotel.service';
-import { User } from 'src/shared/decorators/user.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { FileValidationInterceptor } from 'src/shared/interceptors/fileValidation.interceptor';
 
 @Controller('hotels')
 @UseGuards(AuthGuard, RoleGuard)
@@ -26,6 +29,7 @@ export class HotelsController {
     private readonly findHotelByIdService: FindHotelByIdService,
     private readonly findHotelsService: FindHotelsService,
     private readonly updateHotelService: UpdateHotelService,
+    private readonly uploadImageHotelService: UploadImageHotelService,
     private readonly deleteHotelService: DeleteHotelService,
   ) { }
 
@@ -76,6 +80,25 @@ export class HotelsController {
     @Body() updateHotelDto: UpdateHotelDto
   ) {
     return this.updateHotelService.execute(id, updateHotelDto);
+  }
+
+  @Patch('upload-image/:id')
+  @Roles(Role.ADMIN)
+  @UseGuards(OwnerHotelGuard)
+  @UseInterceptors(FileInterceptor('HOTEL_IMAGE'), FileValidationInterceptor)
+  uploadImage(
+    @Param('id') id: string,
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new FileTypeValidator({ fileType: 'image/*' }),
+          new MaxFileSizeValidator({ maxSize: 900 * 1024 }),
+        ],
+      }),
+    )
+    image: Express.Multer.File,
+  ) {
+    return this.uploadImageHotelService.execute(id, image.filename);
   }
 
   @Delete('delete/:id')
