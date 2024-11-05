@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ReservationsController } from './infra/reservations.controller';
-import { CreateReservationsService } from './services/createReservations.service';
+import { CreateReservationService } from './services/createReservation.service';
 import { PrismaModule } from '../prisma/prisma.module';
 import { AuthModule } from '../auth/auth.module';
 import { UserModule } from '../users/user.module';
@@ -19,7 +19,7 @@ import { FindReservationsByIdService } from './services/findReservationsById.ser
   ],
   controllers: [ReservationsController],
   providers: [
-    CreateReservationsService,
+    CreateReservationService,
     FindReservationsByUserService,
     FindReservationsByIdService,
     {

@@ -1,17 +1,17 @@
 import { Controller, Post, Body, UseGuards, Get } from '@nestjs/common';
 import { CreateReservationDto } from '../domain/dto/create-reservation.dto';
-import { CreateReservationsService } from '../services/createReservations.service';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { User } from 'src/shared/decorators/user.decorator';
 import { FindReservationsByUserService } from '../services/findReservationsByUser.service';
 import { ParamId } from 'src/shared/decorators/paramId.decorator';
 import { FindReservationsByIdService } from '../services/findReservationsById.service';
+import { CreateReservationService } from '../services/createReservation.service';
 
 @Controller('reservations')
 @UseGuards(AuthGuard)
 export class ReservationsController {
   constructor(
-    private readonly createReservationsService: CreateReservationsService,
+    private readonly createReservationService: CreateReservationService,
     private readonly findReservationsByUserService: FindReservationsByUserService,
     private readonly findReservationsByIdService: FindReservationsByIdService,
   ) { }
@@ -21,7 +21,7 @@ export class ReservationsController {
     @User('id') id: number,
     @Body() data: CreateReservationDto,
   ) {
-    return this.createReservationsService.execute(id, data);
+    return this.createReservationService.execute(id, data);
   }
 
   @Get('user')

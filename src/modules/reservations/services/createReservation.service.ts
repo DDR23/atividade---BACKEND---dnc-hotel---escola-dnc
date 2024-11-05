@@ -5,7 +5,7 @@ import { IReservationRepositories } from '../domain/repositories/IReservation.re
 import { IHotelRepositories } from 'src/modules/hotels/domain/repositories/IHotel.repositories';
 
 @Injectable()
-export class CreateReservationsService {
+export class CreateReservationService {
   constructor(
     @Inject('RESERVATION_SERVICE_TOKEN')
     private readonly reservationRepositories: IReservationRepositories,
