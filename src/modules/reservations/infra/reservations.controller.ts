@@ -4,8 +4,8 @@ import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { User } from 'src/shared/decorators/user.decorator';
 import { FindReservationsByUserService } from '../services/findReservationsByUser.service';
 import { ParamId } from 'src/shared/decorators/paramId.decorator';
-import { FindReservationsByIdService } from '../services/findReservationsById.service';
 import { CreateReservationService } from '../services/createReservation.service';
+import { FindReservationByIdService } from '../services/findReservationById.service';
 
 @Controller('reservations')
 @UseGuards(AuthGuard)
@@ -13,7 +13,7 @@ export class ReservationsController {
   constructor(
     private readonly createReservationService: CreateReservationService,
     private readonly findReservationsByUserService: FindReservationsByUserService,
-    private readonly findReservationsByIdService: FindReservationsByIdService,
+    private readonly findReservationByIdService: FindReservationByIdService,
   ) { }
 
   @Post('create')
@@ -35,6 +35,6 @@ export class ReservationsController {
   findReservationById(
     @ParamId() id: number,
   ) {
-    return this.findReservationsByIdService.execute(id);
+    return this.findReservationByIdService.execute(id);
   }
 }

@@ -8,7 +8,7 @@ import { HotelsModule } from '../hotels/hotels.module';
 import { ReservationRepository } from './infra/reservations.repository';
 import { HotelsRepository } from '../hotels/infra/hotels.repository';
 import { FindReservationsByUserService } from './services/findReservationsByUser.service';
-import { FindReservationsByIdService } from './services/findReservationsById.service';
+import { FindReservationByIdService } from './services/findReservationById.service';
 
 @Module({
   imports: [
@@ -21,7 +21,7 @@ import { FindReservationsByIdService } from './services/findReservationsById.ser
   providers: [
     CreateReservationService,
     FindReservationsByUserService,
-    FindReservationsByIdService,
+    FindReservationByIdService,
     {
       provide: 'RESERVATION_SERVICE_TOKEN',
       useClass: ReservationRepository,
