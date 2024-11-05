@@ -31,42 +31,59 @@ export class HotelsController {
 
   @Post('create')
   @Roles(Role.ADMIN)
-  create(@User('id') id: number, @Body() createHotelDto: CreateHotelDto) {
+  create(
+    @User('id') id: number,
+    @Body() createHotelDto: CreateHotelDto
+  ) {
     return this.createHotelService.execute(id, createHotelDto);
   }
 
   @Get('name')
-  findByName(@Query('name') name: string) {
+  findByName(
+    @Query('name') name: string
+  ) {
     return this.findHotelByNameService.execute(name);
   }
 
   @Get('owner')
   @Roles(Role.ADMIN)
-  findByOwner(@User('id') id: number) {
+  findByOwner(
+    @User('id') id: number
+  ) {
     return this.findHotelByOwnerService.execute(id);
   }
 
   @Get(':id')
-  findById(@ParamId() id: number) {
+  findById(
+    @ParamId() id: number
+  ) {
     return this.findHotelByIdService.execute(id);
   }
 
   @Get()
-  findAll() {
-    return this.findHotelsService.execute();
+  findAll(
+    @Query('page') page: string = "1",
+    @Query('limit') limit: string = "10"
+  ) {
+    return this.findHotelsService.execute(Number(page), Number(limit));
   }
 
   @Patch('update/:id')
   @Roles(Role.ADMIN)
   @UseGuards(OwnerHotelGuard)
-  update(@ParamId() id: number, @Body() updateHotelDto: UpdateHotelDto) {
+  update(
+    @ParamId() id: number,
+    @Body() updateHotelDto: UpdateHotelDto
+  ) {
     return this.updateHotelService.execute(id, updateHotelDto);
   }
 
-  @Delete(':id')
+  @Delete('delete/:id')
   @Roles(Role.ADMIN)
   @UseGuards(OwnerHotelGuard)
-  remove(@ParamId() id: number) {
+  remove(
+    @ParamId() id: number
+  ) {
     return this.deleteHotelService.execute(id);
   }
 }
