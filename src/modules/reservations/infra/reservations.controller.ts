@@ -6,6 +6,7 @@ import { FindReservationsByUserService } from '../services/findReservationsByUse
 import { ParamId } from 'src/shared/decorators/paramId.decorator';
 import { CreateReservationService } from '../services/createReservation.service';
 import { FindReservationByIdService } from '../services/findReservationById.service';
+import { FindReservationsService } from '../services/findReservations.service';
 
 @Controller('reservations')
 @UseGuards(AuthGuard)
@@ -14,6 +15,7 @@ export class ReservationsController {
     private readonly createReservationService: CreateReservationService,
     private readonly findReservationsByUserService: FindReservationsByUserService,
     private readonly findReservationByIdService: FindReservationByIdService,
+    private readonly findReservationsService: FindReservationsService,
   ) { }
 
   @Post('create')
@@ -36,5 +38,10 @@ export class ReservationsController {
     @ParamId() id: number,
   ) {
     return this.findReservationByIdService.execute(id);
+  }
+
+  @Get()
+  findReservations() {
+    return this.findReservationsService.execute();
   }
 }

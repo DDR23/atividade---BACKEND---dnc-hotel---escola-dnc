@@ -5,4 +5,5 @@ export interface IReservationRepositories {
   createReservation(data: CreateReservationDto): Promise<Reservation>;
   findReservationsByUser(id: number): Promise<Reservation[]>;
   findReservationById(id: number): Promise<Reservation>;
+  findReservations(): Promise<Reservation[]>;
 }
