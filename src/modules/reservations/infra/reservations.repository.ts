@@ -16,4 +16,8 @@ export class ReservationRepository implements IReservationRepositories {
   findReservationsByUser(id: number): Promise<Reservation[]> {
     return this.prisma.reservation.findMany({ where: { FK_RESERVATION_USER_ID: id } });
   }
+
+  findReservationsById(id: number): Promise<Reservation> {
+    return this.prisma.reservation.findUnique({ where: { id } });
+  }
 }
