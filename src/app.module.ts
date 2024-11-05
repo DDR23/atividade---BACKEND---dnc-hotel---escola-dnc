@@ -5,6 +5,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HotelsModule } from './modules/hotels/hotels.module';
+import { ReservationsModule } from './modules/reservations/reservations.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { HotelsModule } from './modules/hotels/hotels.module';
       defaults: { from: `"dnc_hotel" <${process.env.EMAIL_USER}>` },
     }),
     HotelsModule,
+    ReservationsModule,
   ],
   // controllers: [], //nao utilizado aqui
   providers: [{ provide: 'APP_GUARD', useClass: ThrottlerGuard }],
