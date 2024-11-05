@@ -13,7 +13,7 @@ export class CreateReservationsService {
     private readonly hotelRepositories: IHotelRepositories,
   ) { }
 
-  async create(id: number, data: CreateReservationDto) {
+  async execute(id: number, data: CreateReservationDto) {
     const { RESERVATION_CHECKIN, RESERVATION_CHECKOUT, FK_RESERVATION_HOTEL_ID } = data;
     if (RESERVATION_CHECKIN >= RESERVATION_CHECKOUT) throw new BadRequestException('Check-out date must ba after check-in date');
     const daysOfStay = differenceInDays(RESERVATION_CHECKIN, RESERVATION_CHECKOUT);

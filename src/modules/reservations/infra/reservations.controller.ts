@@ -12,10 +12,10 @@ export class ReservationsController {
   ) { }
 
   @Post('create')
-  create(
+  createReservation(
     @User('id') id: number,
     @Body() data: CreateReservationDto
   ) {
-    return this.createReservationsService.create(id, data);
+    return this.createReservationsService.execute(id, data);
   }
 }
