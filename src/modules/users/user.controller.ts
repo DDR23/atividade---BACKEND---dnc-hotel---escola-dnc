@@ -45,12 +45,8 @@ export class UserController {
     @UploadedFile(
       new ParseFilePipe({
         validators: [
-          new FileTypeValidator({
-            fileType: 'image/*',
-          }),
-          new MaxFileSizeValidator({
-            maxSize: 50 * 1024,
-          })
+          new FileTypeValidator({ fileType: 'image/*' }),
+          new MaxFileSizeValidator({ maxSize: 50 * 1024 })
         ],
       }),
     ) avatar: Express.Multer.File

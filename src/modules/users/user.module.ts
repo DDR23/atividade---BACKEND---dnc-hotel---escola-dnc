@@ -14,13 +14,13 @@ import { v4 as uuidv4 } from 'uuid';
     forwardRef(() => AuthModule),
     MulterModule.register({
       storage: diskStorage({
-        destination: './uploads',
+        destination: './uploads/users',
         filename: (_req, file, cb) => {
           const filename = `${uuidv4()}${file.originalname}`;
           return cb(null, filename);
-        }
-      })
-    })
+        },
+      }),
+    }),
   ],
   controllers: [UserController],
   providers: [UserService],
