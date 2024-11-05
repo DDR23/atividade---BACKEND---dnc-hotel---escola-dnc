@@ -1,12 +1,12 @@
 import { Hotel } from "@prisma/client";
-import { CreateHotelDto } from "../domain/dto/hotelCreate.dto";
-import { IHotelRepository } from "../domain/repositories/IHotel.repository";
+import { CreateHotelDto } from "../domain/dto/create-hotel.dto";
+import { IHotelRepositories } from "../domain/repositories/IHotel.repositories";
 import { PrismaService } from "src/modules/prisma/prisma.service";
 import { Injectable } from "@nestjs/common";
-import { UpdateHotelDto } from "../domain/dto/hotelUpdate.dto";
+import { UpdateHotelDto } from "../domain/dto/update-hotel.dto";
 
 @Injectable()
-export class HotelsRepositories implements IHotelRepository {
+export class HotelsRepository implements IHotelRepositories {
   constructor(
     private readonly prisma: PrismaService,
   ) { }

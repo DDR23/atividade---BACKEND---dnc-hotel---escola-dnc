@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Delete, Query, UseGuards, Param, UploadedFile, ParseFilePipe, FileTypeValidator, MaxFileSizeValidator, UseInterceptors } from '@nestjs/common';
-import { CreateHotelDto } from '../domain/dto/hotelCreate.dto';
-import { UpdateHotelDto } from '../domain/dto/hotelUpdate.dto';
+import { CreateHotelDto } from '../domain/dto/create-hotel.dto';
+import { UpdateHotelDto } from '../domain/dto/update-hotel.dto';
 import { ParamId } from 'src/shared/decorators/paramId.decorator';
 import { AuthGuard } from 'src/shared/guards/auth.guard';
 import { RoleGuard } from 'src/shared/guards/role.guard';

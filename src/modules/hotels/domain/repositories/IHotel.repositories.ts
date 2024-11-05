@@ -1,8 +1,8 @@
 import { Hotel } from "@prisma/client";
-import { CreateHotelDto } from "../dto/hotelCreate.dto";
-import { UpdateHotelDto } from "../dto/hotelUpdate.dto";
+import { CreateHotelDto } from "../dto/create-hotel.dto";
+import { UpdateHotelDto } from "../dto/update-hotel.dto";
 
-export interface IHotelRepository {
+export interface IHotelRepositories {
   createHotel(id: number, data: CreateHotelDto): Promise<Hotel>;
   findHotelByName(name: string): Promise<Hotel[] | null>;
   findHotelByOwner(ownerId: number): Promise<Hotel[]>;

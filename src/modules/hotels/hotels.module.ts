@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { HotelsController } from './infra/hotels.controller';
-import { HotelsRepositories } from './infra/hotels.repositories';
+import { HotelsRepository } from './infra/hotels.repository';
 import { PrismaModule } from '../prisma/prisma.module';
 import { AuthModule } from '../auth/auth.module';
 import { UserModule } from '../users/user.module';
@@ -43,7 +43,7 @@ import { DeleteHotelService } from './services/deletedhotel.service';
     DeleteHotelService,
     {
       provide: 'HOTEL_SERVICE_TOKEN',
-      useClass: HotelsRepositories
+      useClass: HotelsRepository
     }
   ],
 })
