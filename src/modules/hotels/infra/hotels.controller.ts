@@ -55,7 +55,7 @@ export class HotelsController {
     return this.findHotelsService.execute();
   }
 
-  @Patch(':id')
+  @Patch('update/:id')
   @Roles(Role.ADMIN)
   @UseGuards(OwnerHotelGuard)
   update(@ParamId() id: number, @Body() updateHotelDto: UpdateHotelDto) {

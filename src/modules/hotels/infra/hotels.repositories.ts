@@ -3,6 +3,7 @@ import { CreateHotelDto } from "../domain/dto/hotelCreate.dto";
 import { IHotelRepository } from "../domain/repositories/IHotel.repository";
 import { PrismaService } from "src/modules/prisma/prisma.service";
 import { Injectable } from "@nestjs/common";
+import { UpdateHotelDto } from "../domain/dto/hotelUpdate.dto";
 
 @Injectable()
 export class HotelsRepositories implements IHotelRepository {
@@ -30,7 +31,7 @@ export class HotelsRepositories implements IHotelRepository {
     return this.prisma.hotel.findMany();
   }
 
-  updateHotel(id: number, data: CreateHotelDto): Promise<Hotel> {
+  updateHotel(id: number, data: UpdateHotelDto): Promise<Hotel> {
     return this.prisma.hotel.update({ where: { id }, data });
   }
 
