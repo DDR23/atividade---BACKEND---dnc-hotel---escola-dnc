@@ -19,30 +19,48 @@ enum Role {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
-  USER_NAME     String
-  USER_EMAIL    String   @unique
-  USER_PASSWORD String
-  USER_ROLE     Role     @default(USER)
-  USER_AVATAR   String?
-  USER_HOTELS   Hotel[]
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id                Int           @id @default(autoincrement())
+  USER_NAME         String
+  USER_EMAIL        String        @unique
+  USER_PASSWORD     String
+  USER_ROLE         Role          @default(USER)
+  USER_AVATAR       String?
+  USER_HOTELS       Hotel[]
+  USER_RESERVATIONS Reservation[]
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
 
   @@map("users")
 }
 
 model Hotel {
-  id                Int      @id @default(autoincrement())
-  HOTEL_NAME        String
-  HOTEL_DESCRIPTION String
-  HOTEL_ADDRESS     String
-  HOTEL_IMAGE       String?
-  HOTEL_PRICE       Float
-  FK_HOTEL_OWNER_ID Int
-  HOTEL_OWNER       User     @relation(fields: [FK_HOTEL_OWNER_ID], references: [id])
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id                 Int           @id @default(autoincrement())
+  HOTEL_NAME         String
+  HOTEL_DESCRIPTION  String
+  HOTEL_ADDRESS      String
+  HOTEL_IMAGE        String?
+  HOTEL_PRICE        Float
+  HOTEL_RESERVATIONS Reservation[]
+  FK_HOTEL_OWNER_ID  Int
+  HOTEL_OWNER        User          @relation(fields: [FK_HOTEL_OWNER_ID], references: [id])
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
 
   @@map("hotels")
+}
+
+model Reservation {
+  id                      Int      @id @default(autoincrement())
+  FK_RESERVATION_USER_ID  Int
+  RESERVATION_USER        User     @relation(fields: [FK_RESERVATION_USER_ID], references: [id])
+  FK_RESERVATION_HOTEL_ID Int
+  RESERVATION_HOTEL       Hotel    @relation(fields: [FK_RESERVATION_HOTEL_ID], references: [id])
+  RESERVATION_CHECKIN     DateTime
+  RESERVATION_CHECKOUT    DateTime
+  RESERVATION_TOTAL       Float
+  RESERVATION_APPROVED    Boolean  @default(false)
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  @@map("reservations")
 }
