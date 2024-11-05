@@ -14,6 +14,7 @@ import { FindHotelsService } from '../services/findHotels.service';
 import { OwnerHotelGuard } from 'src/shared/guards/ownerHotel.guard';
 import { UpdateHotelService } from '../services/updateHotel.service';
 import { DeleteHotelService } from '../services/deletedhotel.service';
+import { User } from 'src/shared/decorators/user.decorator';
 
 @Controller('hotels')
 @UseGuards(AuthGuard, RoleGuard)
@@ -39,9 +40,9 @@ export class HotelsController {
     return this.findHotelByNameService.execute(name);
   }
 
-  @Get('owner/:id')
+  @Get('owner')
   @Roles(Role.ADMIN)
-  findByOwner(@ParamId() id: number) {
+  findByOwner(@User('id') id: number) {
     return this.findHotelByOwnerService.execute(id);
   }
 
