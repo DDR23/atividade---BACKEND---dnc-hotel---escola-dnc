@@ -7,6 +7,7 @@ import { UserModule } from '../users/user.module';
 import { HotelsModule } from '../hotels/hotels.module';
 import { ReservationRepository } from './infra/reservations.repository';
 import { HotelsRepository } from '../hotels/infra/hotels.repository';
+import { FindReservationsByUserService } from './services/findReservationsByUser.service';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { HotelsRepository } from '../hotels/infra/hotels.repository';
   controllers: [ReservationsController],
   providers: [
     CreateReservationsService,
+    FindReservationsByUserService,
     {
       provide: 'RESERVATION_SERVICE_TOKEN',
       useClass: ReservationRepository,
