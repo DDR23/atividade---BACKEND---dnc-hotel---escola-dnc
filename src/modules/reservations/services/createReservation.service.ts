@@ -3,6 +3,9 @@ import { CreateReservationDto } from '../domain/dto/create-reservation.dto';
 import { differenceInDays } from 'date-fns';
 import { IReservationRepositories } from '../domain/repositories/IReservation.repositories';
 import { IHotelRepositories } from 'src/modules/hotels/domain/repositories/IHotel.repositories';
+import { MailerService } from '@nestjs-modules/mailer';
+import { UserService } from 'src/modules/users/user.service';
+import { templateHTML } from '../utils/templateHTML';
 
 @Injectable()
 export class CreateReservationService {
@@ -11,6 +14,8 @@ export class CreateReservationService {
     private readonly reservationRepositories: IReservationRepositories,
     @Inject('REPOSITORY_TOKEN_HOTEL')
     private readonly hotelRepositories: IHotelRepositories,
+    private readonly mailerService: MailerService,
+    private readonly userService: UserService,
   ) { }
 
   async execute(id: number, data: CreateReservationDto) {
@@ -28,6 +33,12 @@ export class CreateReservationService {
       RESERVATION_TOTAL: total, // TODO - total nao pode ficar negativo
       FK_RESERVATION_USER_ID: id,
     };
+    const hotelOwner = await this.userService.show(hotel.FK_HOTEL_OWNER_ID);
+    await this.mailerService.sendMail({
+      to: hotelOwner.USER_EMAIL,
+      subject: 'Pending Reservation Approval',
+      html: templateHTML(hotelOwner.USER_NAME),
+    })
     return await this.reservationRepositories.createReservation(newReservation)
   }
 }

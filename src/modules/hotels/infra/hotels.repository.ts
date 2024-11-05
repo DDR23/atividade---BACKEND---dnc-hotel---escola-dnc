@@ -25,7 +25,7 @@ export class HotelsRepository implements IHotelRepositories {
   }
 
   findHotelById(id: number): Promise<Hotel | null> {
-    return this.prisma.hotel.findUnique({ where: { id: Number(id) } });
+    return this.prisma.hotel.findUnique({ where: { id: Number(id) }, include: { HOTEL_OWNER: true } });
   }
 
   findHotels(offSet: number, limit: number): Promise<Hotel[]> {
