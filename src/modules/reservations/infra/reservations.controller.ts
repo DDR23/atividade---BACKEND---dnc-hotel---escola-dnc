@@ -7,8 +7,8 @@ import { ParamId } from 'src/shared/decorators/paramId.decorator';
 import { CreateReservationService } from '../services/createReservation.service';
 import { FindReservationByIdService } from '../services/findReservationById.service';
 import { FindReservationsService } from '../services/findReservations.service';
-import { UpdateReservationService } from '../services/updateReservation.service';
 import { ReservationStatus } from '@prisma/client';
+import { UpdateStatusReservationService } from '../services/updateStatusReservation.service';
 
 @Controller('reservations')
 @UseGuards(AuthGuard)
@@ -18,7 +18,7 @@ export class ReservationsController {
     private readonly findReservationsByUserService: FindReservationsByUserService,
     private readonly findReservationByIdService: FindReservationByIdService,
     private readonly findReservationsService: FindReservationsService,
-    private readonly updateReservationService: UpdateReservationService,
+    private readonly updateStatusReservationService: UpdateStatusReservationService,
   ) { }
 
   @Post('create')
@@ -53,6 +53,6 @@ export class ReservationsController {
     @ParamId() id: number,
     @Body('RESERVATION_STATUS') status: ReservationStatus,
   ) {
-    return this.updateReservationService.execute(id, status);
+    return this.updateStatusReservationService.execute(id, status);
   }
 }

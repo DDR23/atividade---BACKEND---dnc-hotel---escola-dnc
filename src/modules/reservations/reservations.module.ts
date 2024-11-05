@@ -10,7 +10,7 @@ import { HotelsRepository } from '../hotels/infra/hotels.repository';
 import { FindReservationsByUserService } from './services/findReservationsByUser.service';
 import { FindReservationByIdService } from './services/findReservationById.service';
 import { FindReservationsService } from './services/findReservations.service';
-import { UpdateReservationService } from './services/updateReservation.service';
+import { UpdateStatusReservationService } from './services/updateStatusReservation.service';
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { UpdateReservationService } from './services/updateReservation.service';
     FindReservationsByUserService,
     FindReservationByIdService,
     FindReservationsService,
-    UpdateReservationService,
+    UpdateStatusReservationService,
     {
       provide: 'RESERVATION_SERVICE_TOKEN',
       useClass: ReservationRepository,
