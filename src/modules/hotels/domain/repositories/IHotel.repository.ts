@@ -3,7 +3,7 @@ import { CreateHotelDto } from "../dto/hotelCreate.dto";
 import { UpdateHotelDto } from "../dto/hotelUpdate.dto";
 
 export interface IHotelRepository {
-  createHotel(data: CreateHotelDto): Promise<Hotel>;
+  createHotel(id: number, data: CreateHotelDto): Promise<Hotel>;
   findHotelByName(name: string): Promise<Hotel[] | null>;
   findHotelByOwner(ownerId: number): Promise<Hotel[]>;
   findHotelById(id: number): Promise<Hotel | null>;

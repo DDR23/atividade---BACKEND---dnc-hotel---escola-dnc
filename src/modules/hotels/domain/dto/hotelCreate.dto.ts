@@ -20,11 +20,12 @@ export class CreateHotelDto {
   @MaxLength(255)
   @IsOptional()
   HOTEL_IMAGE?: string;
-
+  
   @IsNumber()
   @IsNotEmpty()
   HOTEL_PRICE: number;
-
+  
   @IsNumber()
+  @IsOptional()
   FK_HOTEL_OWNER_ID: number;
 }

@@ -31,8 +31,8 @@ export class HotelsController {
 
   @Post('create')
   @Roles(Role.ADMIN)
-  create(@Body() createHotelDto: CreateHotelDto) {
-    return this.createHotelService.execute(createHotelDto);
+  create(@User('id') id: number, @Body() createHotelDto: CreateHotelDto) {
+    return this.createHotelService.execute(id, createHotelDto);
   }
 
   @Get('name')

@@ -11,7 +11,8 @@ export class HotelsRepositories implements IHotelRepository {
     private readonly prisma: PrismaService,
   ) { }
 
-  createHotel(data: CreateHotelDto): Promise<Hotel> {
+  createHotel(id: number, data: CreateHotelDto): Promise<Hotel> {
+    data.FK_HOTEL_OWNER_ID = id;
     return this.prisma.hotel.create({ data });
   }
 
@@ -24,7 +25,7 @@ export class HotelsRepositories implements IHotelRepository {
   }
 
   findHotelById(id: number): Promise<Hotel | null> {
-    return this.prisma.hotel.findUnique({ where: { id } });
+    return this.prisma.hotel.findUnique({ where: { id: Number(id) } });
   }
 
   findHotels(): Promise<Hotel[]> {
