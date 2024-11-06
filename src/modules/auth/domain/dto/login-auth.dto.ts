@@ -1,8 +1,12 @@
 import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 
-export class AuthForgotPasswordDTO {
+export class LoginAuthDto {
   @IsString()
   @IsNotEmpty()
   @IsEmail()
-  email: string;
+  USER_EMAIL: string;
+
+  @IsString()
+  @IsNotEmpty()
+  USER_PASSWORD: string;
 }

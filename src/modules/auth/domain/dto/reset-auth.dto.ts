@@ -1,6 +1,6 @@
 import { IsJWT, IsNotEmpty, IsString } from "class-validator";
 
-export class AuthResetPasswordDTO {
+export class ResetAuthDto {
   @IsString()
   @IsNotEmpty()
   password: string;

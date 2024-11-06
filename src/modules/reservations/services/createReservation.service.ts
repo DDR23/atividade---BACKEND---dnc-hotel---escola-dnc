@@ -4,8 +4,8 @@ import { differenceInDays } from 'date-fns';
 import { IReservationRepositories } from '../domain/repositories/IReservation.repositories';
 import { IHotelRepositories } from 'src/modules/hotels/domain/repositories/IHotel.repositories';
 import { MailerService } from '@nestjs-modules/mailer';
-import { UserService } from 'src/modules/users/user.service';
 import { createOwnerEmail, createUserEmail } from '../utils/templateHTML';
+import { IUserRepositories } from 'src/modules/users/domain/repositories/IUser.repositories';
 
 @Injectable()
 export class CreateReservationService {
@@ -14,8 +14,9 @@ export class CreateReservationService {
     private readonly reservationRepositories: IReservationRepositories,
     @Inject('REPOSITORY_TOKEN_HOTEL')
     private readonly hotelRepositories: IHotelRepositories,
+    @Inject('USER_SERVICE_TOKEN')
+    private readonly userRepositories: IUserRepositories,
     private readonly mailerService: MailerService,
-    private readonly userService: UserService,
   ) { }
 
   async execute(id: number, data: CreateReservationDto) {
@@ -33,13 +34,13 @@ export class CreateReservationService {
       RESERVATION_TOTAL: total, // TODO - total nao pode ficar negativo
       FK_RESERVATION_USER_ID: id,
     };
-    const hotelOwner = await this.userService.show(hotel.FK_HOTEL_OWNER_ID);
+    const hotelOwner = await this.userRepositories.findUserById(hotel.FK_HOTEL_OWNER_ID);
     await this.mailerService.sendMail({
       to: hotelOwner.USER_EMAIL,
       subject: 'Pending Reservation Approval',
       html: createOwnerEmail(hotelOwner.USER_NAME),
     })
-    const user = await this.userService.show(id);
+    const user = await this.userRepositories.findUserById(id);
     await this.mailerService.sendMail({
       to: user.USER_EMAIL,
       subject: 'Pending Reservation Approval',

@@ -1,15 +1,15 @@
-import { IsBoolean, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsBoolean, IsNotEmpty } from "class-validator";
 
-interface JwtPayload {
+export interface JwtPayload {
+  sub: string | number;
   name: string;
   iat?: number;
   expiresIn?: number;
   issuer?: string;
-  sub: string;
   audience?: string;
 }
 
-export class AuthValidateTokenDTO {
+export class ValidateAuthDto {
   @IsBoolean()
   @IsNotEmpty()
   valid: boolean;
