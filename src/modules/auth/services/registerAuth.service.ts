@@ -18,7 +18,7 @@ export class RegisterAuthService {
       USER_NAME: data.USER_NAME,
       USER_PASSWORD: data.USER_PASSWORD,
       USER_EMAIL: data.USER_EMAIL,
-      USER_ROLE: data.USER_ROLE ?? Role.USER,
+      USER_ROLE: Role.USER,
     };
     const user = await this.createUserService.execute(newUser);
     return await this.authRepositories.registerAuth(user);

@@ -25,7 +25,7 @@ export class UserRepository implements IUserRepositories {
   }
 
   findUsers(): Promise<User[]> {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({ select: userSelectedFields });
   }
 
   updateUser(id: number, data: UpdateUserDto): Promise<User> {
