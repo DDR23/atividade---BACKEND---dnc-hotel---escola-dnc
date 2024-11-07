@@ -13,22 +13,30 @@ export class AuthController {
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
-  login(@Body() body: LoginAuthDto) {
+  login(
+    @Body() body: LoginAuthDto
+  ) {
     return this.authService.login(body);
   }
 
   @Post('register')
-  register(@Body() body: RegisterAuthDto) {
+  register(
+    @Body() body: RegisterAuthDto
+  ) {
     return this.authService.register(body);
   }
 
   @Patch('reset-password')
-  resetPassword(@Body() { token, password }: ResetAuthDto) {
+  resetPassword(
+    @Body() { token, password }: ResetAuthDto
+  ) {
     return this.authService.reset({ token, password });
   }
 
   @Post('forgot-password')
-  forgotPassword(@Body() { email }: ForgotAuthDto) {
+  forgotPassword(
+    @Body() { email }: ForgotAuthDto
+  ) {
     return this.authService.forgot(email);
   }
 }
