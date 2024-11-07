@@ -89,7 +89,7 @@ export class UserController {
   @Delete('delete/:id')
   @UseGuards(UserMatchGuard)
   delete(
-    @ParamId() id: number
+    @ParamId() id: number,
   ) {
     return this.deleteUserService.execute(id)
   }

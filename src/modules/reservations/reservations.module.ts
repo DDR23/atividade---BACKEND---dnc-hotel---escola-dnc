@@ -6,12 +6,10 @@ import { AuthModule } from '../auth/auth.module';
 import { UserModule } from '../users/user.module';
 import { HotelsModule } from '../hotels/hotels.module';
 import { ReservationRepository } from './infra/reservations.repository';
-import { HotelsRepository } from '../hotels/infra/hotels.repository';
 import { FindReservationsByUserService } from './services/findReservationsByUser.service';
 import { FindReservationByIdService } from './services/findReservationById.service';
 import { FindReservationsService } from './services/findReservations.service';
 import { UpdateStatusReservationService } from './services/updateStatusReservation.service';
-import { UserRepository } from '../users/infra/users.repository';
 
 @Module({
   imports: [
@@ -20,7 +18,9 @@ import { UserRepository } from '../users/infra/users.repository';
     UserModule,
     HotelsModule,
   ],
-  controllers: [ReservationsController],
+  controllers: [
+    ReservationsController,
+  ],
   providers: [
     CreateReservationService,
     FindReservationsByUserService,

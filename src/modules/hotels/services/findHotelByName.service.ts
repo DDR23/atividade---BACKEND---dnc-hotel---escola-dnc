@@ -7,6 +7,7 @@ export class FindHotelByNameService {
     @Inject('HOTEL_SERVICE_TOKEN')
     private readonly hotelRepositories: IHotelRepositories,
   ) { }
+
   async execute(name: string) {
     const hotel = await this.hotelRepositories.findHotelByName(name);
     return hotel;

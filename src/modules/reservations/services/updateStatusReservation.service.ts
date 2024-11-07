@@ -16,7 +16,7 @@ export class UpdateStatusReservationService {
 
   async execute(id: number, status: ReservationStatus) {
     if (!(status in ReservationStatus)) throw new BadRequestException('Invalid reservations status');
-    const newReservation =  await this.reservationRepositories.updateStatusReservation(id, status);
+    const newReservation = await this.reservationRepositories.updateStatusReservation(id, status);
     const user = await this.findUserByIdService.execute(newReservation.FK_RESERVATION_USER_ID);
     await this.mailerService.sendMail({
       to: user.USER_EMAIL,

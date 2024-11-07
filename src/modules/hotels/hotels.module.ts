@@ -31,7 +31,9 @@ import { DeleteHotelService } from './services/deletedhotel.service';
       }),
     }),
   ],
-  controllers: [HotelsController],
+  controllers: [
+    HotelsController,
+  ],
   providers: [
     CreateHotelService,
     FindHotelByNameService,

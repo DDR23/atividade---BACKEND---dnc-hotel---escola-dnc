@@ -7,14 +7,20 @@ import { UserModule } from "../users/user.module";
 
 @Module({
   imports: [
-    JwtModule.register({ secret: process.env.JWT_SECRET, }),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET,
+    }),
     PrismaModule,
     forwardRef(() => UserModule),
   ],
-  controllers: [AuthController],
+  controllers: [
+    AuthController,
+  ],
   providers: [
     AuthService,
   ],
-  exports: [AuthService]
+  exports: [
+    AuthService,
+  ]
 })
 export class AuthModule { }

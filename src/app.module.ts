@@ -13,20 +13,28 @@ import { RedisModule } from '@nestjs-modules/ioredis';
     PrismaModule,
     UserModule,
     AuthModule,
-    ThrottlerModule.forRoot([{ ttl: 5000, limit: 5 }]),
+    HotelsModule,
+    ReservationsModule,
+    ThrottlerModule.forRoot([{
+      ttl: 5000,
+      limit: 5,
+    }]),
     MailerModule.forRoot({
       transport: process.env.SMTP,
       defaults: { from: `"dnc_hotel" <${process.env.EMAIL_USER}>` },
     }),
-    HotelsModule,
-    ReservationsModule,
     RedisModule.forRoot({
       type: 'single',
       url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
-    })
+    }),
   ],
   // controllers: [], //nao utilizado aqui
-  providers: [{ provide: 'APP_GUARD', useClass: ThrottlerGuard }],
+  providers: [
+    {
+      provide: 'APP_GUARD',
+      useClass: ThrottlerGuard,
+    },
+  ],
   // exports: [], //nao utilizado aqui
 })
 export class AppModule { }

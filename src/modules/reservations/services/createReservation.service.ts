@@ -2,10 +2,8 @@ import { BadRequestException, Inject, Injectable, NotFoundException } from '@nes
 import { CreateReservationDto } from '../domain/dto/create-reservation.dto';
 import { differenceInDays } from 'date-fns';
 import { IReservationRepositories } from '../domain/repositories/IReservation.repositories';
-import { IHotelRepositories } from 'src/modules/hotels/domain/repositories/IHotel.repositories';
 import { MailerService } from '@nestjs-modules/mailer';
 import { createOwnerEmail, createUserEmail } from '../utils/templateHTML';
-import { IUserRepositories } from 'src/modules/users/domain/repositories/IUser.repositories';
 import { FindHotelByIdService } from 'src/modules/hotels/services/findHotelById.service';
 import { FindUserByIdService } from 'src/modules/users/services/findUserById.service';
 

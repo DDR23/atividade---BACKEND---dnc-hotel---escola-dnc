@@ -29,7 +29,9 @@ import { UserRepository } from "./infra/users.repository";
       }),
     }),
   ],
-  controllers: [UserController],
+  controllers: [
+    UserController,
+  ],
   providers: [
     CreateUserService,
     FindUserByEmailService,

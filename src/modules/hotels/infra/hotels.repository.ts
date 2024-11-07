@@ -35,10 +35,6 @@ export class HotelsRepository implements IHotelRepositories {
       include: { HOTEL_OWNER: true },
     });
   }
-  
-  countHotels(): Promise<number> {
-    return this.prisma.hotel.count();
-  }
 
   updateHotel(id: number, data: UpdateHotelDto): Promise<Hotel> {
     return this.prisma.hotel.update({ where: { id }, data });
@@ -50,5 +46,9 @@ export class HotelsRepository implements IHotelRepositories {
 
   deleteHotel(id: number): Promise<Hotel> {
     return this.prisma.hotel.delete({ where: { id } })
+  }
+
+  countHotels(): Promise<number> {
+    return this.prisma.hotel.count();
   }
 }

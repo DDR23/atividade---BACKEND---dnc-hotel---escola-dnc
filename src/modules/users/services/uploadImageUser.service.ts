@@ -1,5 +1,4 @@
-import { Inject, Injectable, NotFoundException } from "@nestjs/common";
-import { User } from "@prisma/client";
+import { Inject, Injectable } from "@nestjs/common";
 import { join, resolve } from "path";
 import { stat, unlink } from "fs/promises";
 import { IUserRepositories } from "../domain/repositories/IUser.repositories";
