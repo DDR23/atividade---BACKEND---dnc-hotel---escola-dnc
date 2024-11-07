@@ -1,14 +1,9 @@
 import { forwardRef, Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
+import { AuthService } from "./auth.service";
 import { PrismaModule } from "../prisma/prisma.module";
-import { AuthController } from "./infra/auth.controller";
+import { AuthController } from "./auth.controller";
 import { UserModule } from "../users/user.module";
-import { LoginAuthService } from "./services/loginAuth.service";
-import { RegisterAuthService } from "./services/registerAuth.service";
-import { ResetAuthService } from "./services/resetAuth.service";
-import { ForgotAuthService } from "./services/forgotAuth.service";
-import { SignTokenAuthService } from "./services/signTokenAuth.service";
-import { ValidateTokenAuthService } from "./services/validateTokenAuth.service";
 
 @Module({
   imports: [
@@ -18,12 +13,8 @@ import { ValidateTokenAuthService } from "./services/validateTokenAuth.service";
   ],
   controllers: [AuthController],
   providers: [
-    LoginAuthService,
-    RegisterAuthService,
-    ResetAuthService,
-    ForgotAuthService,
-    SignTokenAuthService,
-    ValidateTokenAuthService,
+    AuthService,
   ],
+  exports: [AuthService]
 })
 export class AuthModule { }

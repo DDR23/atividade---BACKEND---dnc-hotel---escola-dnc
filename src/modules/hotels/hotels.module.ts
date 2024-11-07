@@ -44,7 +44,10 @@ import { DeleteHotelService } from './services/deletedhotel.service';
     {
       provide: 'HOTEL_SERVICE_TOKEN',
       useClass: HotelsRepository
-    }
+    },
   ],
+  exports: [
+    FindHotelByIdService,
+  ]
 })
 export class HotelsModule { }

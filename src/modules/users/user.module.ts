@@ -13,6 +13,7 @@ import { FindUsersService } from "./services/findUsers.service";
 import { UpdateUserService } from "./services/updateUser.service";
 import { UploadImageUserService } from "./services/uploadImageUser.service";
 import { DeleteUserService } from "./services/deleteUser.service";
+import { UserRepository } from "./infra/users.repository";
 
 @Module({
   imports: [
@@ -37,6 +38,16 @@ import { DeleteUserService } from "./services/deleteUser.service";
     UpdateUserService,
     UploadImageUserService,
     DeleteUserService,
+    {
+      provide: 'USER_SERVICE_TOKEN',
+      useClass: UserRepository,
+    },
+  ],
+  exports: [
+    CreateUserService,
+    FindUserByEmailService,
+    FindUserByIdService,
+    UpdateUserService,
   ],
 })
 export class UserModule implements NestModule {
