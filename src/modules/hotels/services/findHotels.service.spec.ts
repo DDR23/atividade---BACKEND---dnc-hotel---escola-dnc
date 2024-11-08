@@ -3,6 +3,7 @@ import { IHotelRepositories } from "../domain/repositories/IHotel.repositories";
 import { FindHotelsService } from "./findHotels.service";
 import { Hotel } from "@prisma/client";
 import { HOTEL_REDIS_TOKEN } from "../uitls/hotelRedisToken";
+import { HOTEL_SERVICE_TOKEN } from "../uitls/hotelServiceToken";
 
 let service: FindHotelsService;
 let hotelRepositories: IHotelRepositories;
@@ -29,7 +30,7 @@ describe('FindHotelsService', () => {
       providers: [
         FindHotelsService,
         {
-          provide: 'HOTEL_SERVICE_TOKEN',
+          provide: HOTEL_SERVICE_TOKEN,
           useValue: {
             findHotels: jest.fn().mockResolvedValue([findHotelsMock]),
             countHotels: jest.fn().mockResolvedValue(1),
@@ -45,7 +46,7 @@ describe('FindHotelsService', () => {
       ],
     }).compile();
     service = module.get<FindHotelsService>(FindHotelsService);
-    hotelRepositories = module.get<IHotelRepositories>('HOTEL_SERVICE_TOKEN');
+    hotelRepositories = module.get<IHotelRepositories>(HOTEL_SERVICE_TOKEN);
     redis = module.get('default_IORedisModuleConnectionToken');
   });
 

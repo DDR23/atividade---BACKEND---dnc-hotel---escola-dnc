@@ -5,11 +5,12 @@ import { stat, unlink } from 'fs/promises';
 import { InjectRedis } from '@nestjs-modules/ioredis';
 import Redis from 'ioredis';
 import { HOTEL_REDIS_TOKEN } from '../uitls/hotelRedisToken';
+import { HOTEL_SERVICE_TOKEN } from '../uitls/hotelServiceToken';
 
 @Injectable()
 export class UploadImageHotelService {
   constructor(
-    @Inject('HOTEL_SERVICE_TOKEN')
+    @Inject(HOTEL_SERVICE_TOKEN)
     private readonly hotelRepositories: IHotelRepositories,
     @InjectRedis()
     private readonly redis: Redis,

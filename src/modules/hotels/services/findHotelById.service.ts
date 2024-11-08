@@ -1,10 +1,11 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { IHotelRepositories } from '../domain/repositories/IHotel.repositories';
+import { HOTEL_SERVICE_TOKEN } from '../uitls/hotelServiceToken';
 
 @Injectable()
 export class FindHotelByIdService {
   constructor(
-    @Inject('HOTEL_SERVICE_TOKEN')
+    @Inject(HOTEL_SERVICE_TOKEN)
     private readonly hotelRepositories: IHotelRepositories,
   ) { }
 

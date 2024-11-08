@@ -2,6 +2,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { CreateHotelService } from "./createHotel.service";
 import { IHotelRepositories } from "../domain/repositories/IHotel.repositories";
 import { HOTEL_REDIS_TOKEN } from "../uitls/hotelRedisToken";
+import { HOTEL_SERVICE_TOKEN } from "../uitls/hotelServiceToken";
 
 let service: CreateHotelService;
 let hotelRepositories: IHotelRepositories;
@@ -27,7 +28,7 @@ describe('CreateHotelService', () => {
       providers: [
         CreateHotelService,
         {
-          provide: 'HOTEL_SERVICE_TOKEN',
+          provide: HOTEL_SERVICE_TOKEN,
           useValue: {
             createHotel: jest.fn().mockResolvedValue(createHotelMock),
           },
@@ -41,7 +42,7 @@ describe('CreateHotelService', () => {
       ]
     }).compile();
     service = module.get<CreateHotelService>(CreateHotelService);
-    hotelRepositories = module.get<IHotelRepositories>('HOTEL_SERVICE_TOKEN');
+    hotelRepositories = module.get<IHotelRepositories>(HOTEL_SERVICE_TOKEN);
     redis = module.get('default_IORedisModuleConnectionToken');
   });
 
