@@ -3,11 +3,12 @@ import { IAuthRepositories } from "../domain/repositories/IAuth.repositories";
 import { LoginAuthDto } from "../domain/dto/login-auth.dto";
 import * as bcrypt from "bcrypt";
 import { FindUserByEmailService } from "src/modules/users/services/finduserByEmail.service";
+import { AUTH_SERVICE_TOKEN } from "../utils/authServiceToken";
 
 @Injectable()
 export class LoginAuthService {
   constructor(
-    @Inject('AUTH_SERVICE_TOKEN')
+    @Inject(AUTH_SERVICE_TOKEN)
     private readonly authRepositories: IAuthRepositories,
     private readonly findUserByEmailService: FindUserByEmailService,
   ) { }

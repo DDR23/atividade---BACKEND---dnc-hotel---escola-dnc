@@ -2,11 +2,12 @@ import { Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { IAuthRepositories } from "../domain/repositories/IAuth.repositories";
 import { ResetAuthDto } from "../domain/dto/reset-auth.dto";
 import { UpdateUserService } from "src/modules/users/services/updateUser.service";
+import { AUTH_SERVICE_TOKEN } from "../utils/authServiceToken";
 
 @Injectable()
 export class ResetAuthService {
   constructor(
-    @Inject('AUTH_SERVICE_TOKEN')
+    @Inject(AUTH_SERVICE_TOKEN)
     private readonly authRepositories: IAuthRepositories,
     private readonly updateUserService: UpdateUserService,
   ) { }

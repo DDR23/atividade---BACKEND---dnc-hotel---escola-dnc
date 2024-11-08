@@ -4,11 +4,12 @@ import { RegisterAuthDto } from "../domain/dto/register-auth.dto";
 import { CreateUserDto } from "src/modules/users/domain/dto/create-user.dto";
 import { Role } from "@prisma/client";
 import { CreateUserService } from "src/modules/users/services/createUser.service";
+import { AUTH_SERVICE_TOKEN } from "../utils/authServiceToken";
 
 @Injectable()
 export class RegisterAuthService {
   constructor(
-    @Inject('AUTH_SERVICE_TOKEN')
+    @Inject(AUTH_SERVICE_TOKEN)
     private readonly authRepositories: IAuthRepositories,
     private readonly createUserService: CreateUserService,
   ) { }

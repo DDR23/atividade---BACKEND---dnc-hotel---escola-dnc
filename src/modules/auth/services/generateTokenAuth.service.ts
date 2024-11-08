@@ -1,11 +1,12 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { User } from "@prisma/client";
 import { IAuthRepositories } from "../domain/repositories/IAuth.repositories";
+import { AUTH_SERVICE_TOKEN } from "../utils/authServiceToken";
 
 @Injectable()
 export class GenerateTokenAuthService {
   constructor(
-    @Inject('AUTH_SERVICE_TOKEN')
+    @Inject(AUTH_SERVICE_TOKEN)
     private readonly authRepositories: IAuthRepositories,
   ) { }
 

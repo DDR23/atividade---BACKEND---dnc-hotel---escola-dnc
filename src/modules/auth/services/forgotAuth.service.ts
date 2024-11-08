@@ -4,11 +4,12 @@ import { ForgotAuthDto } from "../domain/dto/forgot-auth.dto";
 import { MailerService } from "@nestjs-modules/mailer";
 import { templateHTML } from "../utils/templateHTML";
 import { FindUserByEmailService } from "src/modules/users/services/finduserByEmail.service";
+import { AUTH_SERVICE_TOKEN } from "../utils/authServiceToken";
 
 @Injectable()
 export class ForgotAuthService {
   constructor(
-    @Inject('AUTH_SERVICE_TOKEN')
+    @Inject(AUTH_SERVICE_TOKEN)
     private readonly authRepositories: IAuthRepositories,
     private readonly findUserByEmailService: FindUserByEmailService,
     private readonly mailerService: MailerService,

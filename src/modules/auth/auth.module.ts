@@ -10,6 +10,7 @@ import { ForgotAuthService } from "./services/forgotAuth.service";
 import { AuthController } from "./infra/auth.controller";
 import { GenerateTokenAuthService } from "./services/generateTokenAuth.service";
 import { ValidateTokenAuthService } from "./services/validateTokenAuth.service";
+import { AUTH_SERVICE_TOKEN } from "./utils/authServiceToken";
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { ValidateTokenAuthService } from "./services/validateTokenAuth.service";
     GenerateTokenAuthService,
     ValidateTokenAuthService,
     {
-      provide: 'AUTH_SERVICE_TOKEN',
+      provide: AUTH_SERVICE_TOKEN,
       useClass: AuthRepository,
     }
   ],
