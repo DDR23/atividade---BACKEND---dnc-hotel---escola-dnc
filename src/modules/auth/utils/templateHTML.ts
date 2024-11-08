@@ -1,4 +1,4 @@
-export const templateHTML = (username: string, token: string) => `
+export const forgotUserEmail = (username: string, token: string) => `
   <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
   <h2>Olá ${username},</h2>
   <p>Você solicitou a redefinição de sua senha. Use o token abaixo para completar o processo:</p>

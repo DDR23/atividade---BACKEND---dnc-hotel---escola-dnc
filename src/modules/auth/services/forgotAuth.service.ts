@@ -2,7 +2,7 @@ import { Inject, Injectable, UnauthorizedException } from "@nestjs/common";
 import { IAuthRepositories } from "../domain/repositories/IAuth.repositories";
 import { ForgotAuthDto } from "../domain/dto/forgot-auth.dto";
 import { MailerService } from "@nestjs-modules/mailer";
-import { templateHTML } from "../utils/templateHTML";
+import { forgotUserEmail } from "../utils/templateHTML";
 import { FindUserByEmailService } from "src/modules/users/services/finduserByEmail.service";
 import { AUTH_SERVICE_TOKEN } from "../utils/authServiceToken";
 
@@ -22,7 +22,7 @@ export class ForgotAuthService {
     await this.mailerService.sendMail({
       to: user.USER_EMAIL,
       subject: 'Password recodery - DNC Hotel',
-      html: templateHTML(user.USER_NAME, token.access_token),
+      html: forgotUserEmail(user.USER_NAME, token.access_token),
     });
     return await this.authRepositories.forgotAuth(user);
   }
