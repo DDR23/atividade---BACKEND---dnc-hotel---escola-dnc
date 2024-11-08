@@ -4,11 +4,12 @@ import { ReservationStatus } from '@prisma/client';
 import { MailerService } from '@nestjs-modules/mailer';
 import { updateUserEmail } from '../utils/templateHTML';
 import { FindUserByIdService } from 'src/modules/users/services/findUserById.service';
+import { RESERVATION_SERVICE_TOKEN } from '../utils/reservationServiceToken';
 
 @Injectable()
 export class UpdateStatusReservationService {
   constructor(
-    @Inject('RESERVATION_SERVICE_TOKEN')
+    @Inject(RESERVATION_SERVICE_TOKEN)
     private readonly reservationRepositories: IReservationRepositories,
     private readonly findUserByIdService: FindUserByIdService,
     private readonly mailerService: MailerService,

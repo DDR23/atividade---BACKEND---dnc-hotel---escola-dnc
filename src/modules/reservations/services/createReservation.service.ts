@@ -6,11 +6,12 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { createOwnerEmail, createUserEmail } from '../utils/templateHTML';
 import { FindHotelByIdService } from 'src/modules/hotels/services/findHotelById.service';
 import { FindUserByIdService } from 'src/modules/users/services/findUserById.service';
+import { RESERVATION_SERVICE_TOKEN } from '../utils/reservationServiceToken';
 
 @Injectable()
 export class CreateReservationService {
   constructor(
-    @Inject('RESERVATION_SERVICE_TOKEN')
+    @Inject(RESERVATION_SERVICE_TOKEN)
     private readonly reservationRepositories: IReservationRepositories,
     private readonly findHotelByIdService: FindHotelByIdService,
     private readonly findUserByIdService: FindUserByIdService,
