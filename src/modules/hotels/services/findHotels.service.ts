@@ -3,8 +3,8 @@ import { IHotelRepositories } from '../domain/repositories/IHotel.repositories';
 import Redis from 'ioredis';
 import { InjectRedis } from '@nestjs-modules/ioredis';
 import { Hotel } from '@prisma/client';
-import { HOTEL_REDIS_TOKEN } from '../uitls/hotelRedisToken';
-import { HOTEL_SERVICE_TOKEN } from '../uitls/hotelServiceToken';
+import { HOTEL_REDIS_TOKEN } from '../utils/hotelRedisToken';
+import { HOTEL_SERVICE_TOKEN } from '../utils/hotelServiceToken';
 
 @Injectable()
 export class FindHotelsService {

@@ -15,7 +15,7 @@ import { FindHotelsService } from './services/findHotels.service';
 import { UpdateHotelService } from './services/updateHotel.service';
 import { UploadImageHotelService } from './services/uploadImageHotel.service';
 import { DeleteHotelService } from './services/deletedhotel.service';
-import { HOTEL_SERVICE_TOKEN } from './uitls/hotelServiceToken';
+import { HOTEL_SERVICE_TOKEN } from './utils/hotelServiceToken';
 
 @Module({
   imports: [

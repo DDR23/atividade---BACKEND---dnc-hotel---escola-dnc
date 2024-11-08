@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IHotelRepositories } from '../domain/repositories/IHotel.repositories';
-import { HOTEL_SERVICE_TOKEN } from '../uitls/hotelServiceToken';
+import { HOTEL_SERVICE_TOKEN } from '../utils/hotelServiceToken';
 
 @Injectable()
 export class FindHotelByOwnerService {

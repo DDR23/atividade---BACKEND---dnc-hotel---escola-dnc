@@ -1,8 +1,8 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { CreateHotelService } from "./createHotel.service";
 import { IHotelRepositories } from "../domain/repositories/IHotel.repositories";
-import { HOTEL_REDIS_TOKEN } from "../uitls/hotelRedisToken";
-import { HOTEL_SERVICE_TOKEN } from "../uitls/hotelServiceToken";
+import { HOTEL_REDIS_TOKEN } from "../utils/hotelRedisToken";
+import { HOTEL_SERVICE_TOKEN } from "../utils/hotelServiceToken";
 
 let service: CreateHotelService;
 let hotelRepositories: IHotelRepositories;

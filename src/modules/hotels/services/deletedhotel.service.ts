@@ -2,8 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IHotelRepositories } from '../domain/repositories/IHotel.repositories';
 import { InjectRedis } from '@nestjs-modules/ioredis';
 import Redis from 'ioredis';
-import { HOTEL_REDIS_TOKEN } from '../uitls/hotelRedisToken';
-import { HOTEL_SERVICE_TOKEN } from '../uitls/hotelServiceToken';
+import { HOTEL_REDIS_TOKEN } from '../utils/hotelRedisToken';
+import { HOTEL_SERVICE_TOKEN } from '../utils/hotelServiceToken';
 
 @Injectable()
 export class DeleteHotelService {
