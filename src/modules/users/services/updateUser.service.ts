@@ -3,11 +3,12 @@ import { User } from "@prisma/client";
 import * as bcrypt from "bcrypt"
 import { IUserRepositories } from "../domain/repositories/IUser.repositories";
 import { UpdateUserDto } from "../domain/dto/update-user.dto";
+import { USER_SERVICE_TOKEN } from "../utils/userServiceToken";
 
 @Injectable()
 export class UpdateUserService {
   constructor(
-    @Inject('USER_SERVICE_TOKEN')
+    @Inject(USER_SERVICE_TOKEN)
     private readonly userRepositories: IUserRepositories,
   ) { }
 

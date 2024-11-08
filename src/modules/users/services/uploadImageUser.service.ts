@@ -2,11 +2,12 @@ import { Inject, Injectable } from "@nestjs/common";
 import { join, resolve } from "path";
 import { stat, unlink } from "fs/promises";
 import { IUserRepositories } from "../domain/repositories/IUser.repositories";
+import { USER_SERVICE_TOKEN } from "../utils/userServiceToken";
 
 @Injectable()
 export class UploadImageUserService {
   constructor(
-    @Inject('USER_SERVICE_TOKEN')
+    @Inject(USER_SERVICE_TOKEN)
     private readonly userRepositories: IUserRepositories,
   ) { }
 

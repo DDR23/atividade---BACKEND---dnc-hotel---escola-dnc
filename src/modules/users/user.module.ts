@@ -14,6 +14,7 @@ import { UpdateUserService } from "./services/updateUser.service";
 import { UploadImageUserService } from "./services/uploadImageUser.service";
 import { DeleteUserService } from "./services/deleteUser.service";
 import { UserRepository } from "./infra/users.repository";
+import { USER_SERVICE_TOKEN } from "./utils/userServiceToken";
 
 @Module({
   imports: [
@@ -41,7 +42,7 @@ import { UserRepository } from "./infra/users.repository";
     UploadImageUserService,
     DeleteUserService,
     {
-      provide: 'USER_SERVICE_TOKEN',
+      provide: USER_SERVICE_TOKEN,
       useClass: UserRepository,
     },
   ],

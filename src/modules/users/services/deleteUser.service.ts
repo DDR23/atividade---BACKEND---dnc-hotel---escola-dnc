@@ -1,10 +1,11 @@
 import { Inject, Injectable } from "@nestjs/common";
 import { IUserRepositories } from "../domain/repositories/IUser.repositories";
+import { USER_SERVICE_TOKEN } from "../utils/userServiceToken";
 
 @Injectable()
 export class DeleteUserService {
   constructor(
-    @Inject('USER_SERVICE_TOKEN')
+    @Inject(USER_SERVICE_TOKEN)
     private readonly userRepositories: IUserRepositories,
   ) { }
 
