@@ -3,6 +3,7 @@ import { IHotelRepositories } from '../domain/repositories/IHotel.repositories';
 import Redis from 'ioredis';
 import { InjectRedis } from '@nestjs-modules/ioredis';
 import { Hotel } from '@prisma/client';
+import { HOTEL_REDIS_TOKEN } from '../uitls/hotelRedisToken';
 
 @Injectable()
 export class FindHotelsService {
@@ -15,7 +16,7 @@ export class FindHotelsService {
 
   async execute(page: number = 1, limit: number = 10) {
     const offSet = (page - 1) * limit;
-    let data = JSON.parse(await this.redis.get('REDIS_HOTEL_KEY'));
+    let data = JSON.parse(await this.redis.get(HOTEL_REDIS_TOKEN));
     if (!data) {
       data = await this.hotelRepositories.findHotels(offSet, limit);
       data = data.map((hotel: Hotel) => {
@@ -24,7 +25,7 @@ export class FindHotelsService {
         }
         return hotel;
       })
-      await this.redis.set('REDIS_HOTEL_KEY', JSON.stringify(data));
+      await this.redis.set(HOTEL_REDIS_TOKEN, JSON.stringify(data));
     }
     const total = await this.hotelRepositories.countHotels();
     return {

@@ -1,6 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { CreateHotelService } from "./createHotel.service";
 import { IHotelRepositories } from "../domain/repositories/IHotel.repositories";
+import { HOTEL_REDIS_TOKEN } from "../uitls/hotelRedisToken";
 
 let service: CreateHotelService;
 let hotelRepositories: IHotelRepositories;
@@ -50,7 +51,7 @@ describe('CreateHotelService', () => {
 
   it('should delete the redis key', async () => {
     await service.execute(userIdMock, createHotelMock);
-    expect(redis.del).toHaveBeenCalledWith('REDIS_HOTEL_KEY');
+    expect(redis.del).toHaveBeenCalledWith(HOTEL_REDIS_TOKEN);
   });
 
   it('should create a hotel', async () => {

@@ -2,6 +2,7 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { IHotelRepositories } from "../domain/repositories/IHotel.repositories";
 import { FindHotelsService } from "./findHotels.service";
 import { Hotel } from "@prisma/client";
+import { HOTEL_REDIS_TOKEN } from "../uitls/hotelRedisToken";
 
 let service: FindHotelsService;
 let hotelRepositories: IHotelRepositories;
@@ -58,16 +59,16 @@ describe('FindHotelsService', () => {
       hotel.createdAt = new Date(hotel.createdAt);
       hotel.updatedAt = new Date(hotel.updatedAt);
     });
-    expect(redis.get).toHaveBeenCalledWith('REDIS_HOTEL_KEY');
+    expect(redis.get).toHaveBeenCalledWith(HOTEL_REDIS_TOKEN);
     expect(result.data).toEqual([findHotelsMock]);
   });
 
   it('Should fetch hotels from repositories if not in redis and cache them', async () => {
     redis.get.mockResolvedValue(null);
     const result = await service.execute();
-    expect(redis.get).toHaveBeenCalledWith('REDIS_HOTEL_KEY');
+    expect(redis.get).toHaveBeenCalledWith(HOTEL_REDIS_TOKEN);
     expect(hotelRepositories.findHotels).toHaveBeenCalledWith(0, 10);
-    expect(redis.set).toHaveBeenCalledWith('REDIS_HOTEL_KEY', JSON.stringify([findHotelsMock]));
+    expect(redis.set).toHaveBeenCalledWith(HOTEL_REDIS_TOKEN, JSON.stringify([findHotelsMock]));
     expect(hotelRepositories.countHotels).toHaveBeenCalledWith();
     expect(result.data).toEqual([findHotelsMock]);
     expect(result.total).toEqual(1);

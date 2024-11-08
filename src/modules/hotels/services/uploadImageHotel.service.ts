@@ -4,6 +4,7 @@ import { join, resolve } from 'path';
 import { stat, unlink } from 'fs/promises';
 import { InjectRedis } from '@nestjs-modules/ioredis';
 import Redis from 'ioredis';
+import { HOTEL_REDIS_TOKEN } from '../uitls/hotelRedisToken';
 
 @Injectable()
 export class UploadImageHotelService {
@@ -23,7 +24,7 @@ export class UploadImageHotelService {
       const hotelImageFileExists = await stat(hotelImageFilePath);
       if (hotelImageFileExists) await unlink(hotelImageFilePath);
     }
-    await this.redis.del('REDIS_HOTEL_KEY');
+    await this.redis.del(HOTEL_REDIS_TOKEN);
     const hotelUpdated = await this.hotelRepositories.uploadImageHotel(Number(id), { HOTEL_IMAGE: imageFileName });
     return hotelUpdated;
   }
