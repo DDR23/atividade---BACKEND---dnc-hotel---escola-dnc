@@ -4,9 +4,6 @@ import { FindHotelByIdService } from "./findHotelById.service";
 import { HOTEL_SERVICE_TOKEN } from "../utils/hotelServiceToken";
 import { NotFoundException } from "@nestjs/common";
 
-let service: FindHotelByIdService;
-let hotelRepositories: IHotelRepositories;
-
 const findHotelByIdMock = {
   id: 1,
   HOTEL_NAME: 'teste hotel',
@@ -20,6 +17,9 @@ const findHotelByIdMock = {
 };
 
 describe('FindHotelByIdService', () => {
+  let service: FindHotelByIdService;
+  let hotelRepositories: IHotelRepositories;
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [

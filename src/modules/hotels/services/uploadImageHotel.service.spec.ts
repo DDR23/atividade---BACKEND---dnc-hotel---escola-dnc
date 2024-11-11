@@ -7,10 +7,6 @@ import { join, resolve } from "path";
 import { stat, unlink } from "fs/promises";
 import { HOTEL_REDIS_TOKEN } from "../utils/hotelRedisToken";
 
-let service: UploadImageHotelService;
-let hotelRepositories: IHotelRepositories;
-let redis: { del: jest.Mock };
-
 const uploadImageHotelMock = {
   id: 1,
   HOTEL_NAME: 'teste hotel',
@@ -29,6 +25,10 @@ jest.mock('fs/promises', () => ({
 }))
 
 describe('UploadImageHotelService', () => {
+  let service: UploadImageHotelService;
+  let hotelRepositories: IHotelRepositories;
+  let redis: { del: jest.Mock };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [

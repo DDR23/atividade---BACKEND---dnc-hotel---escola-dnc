@@ -3,9 +3,6 @@ import { IHotelRepositories } from "../domain/repositories/IHotel.repositories";
 import { FindHotelByNameService } from "./findHotelByName.service";
 import { HOTEL_SERVICE_TOKEN } from "../utils/hotelServiceToken";
 
-let service: FindHotelByNameService;
-let hotelRepositories: IHotelRepositories;
-
 const findHotelByNameMock = {
   id: 1,
   HOTEL_NAME: 'teste hotel',
@@ -19,6 +16,9 @@ const findHotelByNameMock = {
 };
 
 describe('FindHotelByNameService', () => {
+  let service: FindHotelByNameService;
+  let hotelRepositories: IHotelRepositories;
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [

@@ -5,13 +5,6 @@ import { Hotel } from "@prisma/client";
 import { HOTEL_REDIS_TOKEN } from "../utils/hotelRedisToken";
 import { HOTEL_SERVICE_TOKEN } from "../utils/hotelServiceToken";
 
-let service: FindHotelsService;
-let hotelRepositories: IHotelRepositories;
-let redis: {
-  get: jest.Mock,
-  set: jest.Mock,
-};
-
 const findHotelsMock: Hotel = {
   id: 1,
   HOTEL_NAME: 'teste hotel',
@@ -25,6 +18,13 @@ const findHotelsMock: Hotel = {
 };
 
 describe('FindHotelsService', () => {
+  let service: FindHotelsService;
+  let hotelRepositories: IHotelRepositories;
+  let redis: {
+    get: jest.Mock,
+    set: jest.Mock,
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [

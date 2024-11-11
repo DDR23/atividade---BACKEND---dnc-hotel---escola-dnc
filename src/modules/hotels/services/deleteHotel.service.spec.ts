@@ -4,10 +4,6 @@ import { DeleteHotelService } from "./deleteHotel.service";
 import { HOTEL_SERVICE_TOKEN } from "../utils/hotelServiceToken";
 import { HOTEL_REDIS_TOKEN } from "../utils/hotelRedisToken";
 
-let service: DeleteHotelService;
-let hotelRepositories: IHotelRepositories;
-let redis: { del: jest.Mock };
-
 const deleteHotelMock = {
   id: 1,
   HOTEL_NAME: 'teste hotel',
@@ -21,6 +17,10 @@ const deleteHotelMock = {
 };
 
 describe('DeleteHotelService', () => {
+  let service: DeleteHotelService;
+  let hotelRepositories: IHotelRepositories;
+  let redis: { del: jest.Mock };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
