@@ -10,7 +10,6 @@ export class FindHotelByOwnerService {
   ) { }
 
   async execute(ownerId: number) {
-    const hotel = await this.hotelRepositories.findHotelByOwner(ownerId);
-    return hotel;
+    return await this.hotelRepositories.findHotelByOwner(ownerId);
   }
 }

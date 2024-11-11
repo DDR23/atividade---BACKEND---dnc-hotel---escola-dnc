@@ -10,7 +10,6 @@ export class FindHotelByNameService {
   ) { }
 
   async execute(name: string) {
-    const hotel = await this.hotelRepositories.findHotelByName(name);
-    return hotel;
+    return await this.hotelRepositories.findHotelByName(name);
   }
 }
