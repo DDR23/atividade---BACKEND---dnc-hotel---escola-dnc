@@ -15,7 +15,7 @@ import { FindHotelByIdService } from '../services/findHotelById.service';
 import { FindHotelsService } from '../services/findHotels.service';
 import { UpdateHotelService } from '../services/updateHotel.service';
 import { UploadImageHotelService } from '../services/uploadImageHotel.service';
-import { DeleteHotelService } from '../services/deletedhotel.service';
+import { DeleteHotelService } from '../services/deleteHotel.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FileValidationInterceptor } from 'src/shared/interceptors/fileValidation.interceptor';
 
