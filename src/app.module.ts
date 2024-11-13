@@ -25,7 +25,7 @@ import { RedisModule } from '@nestjs-modules/ioredis';
     }),
     RedisModule.forRoot({
       type: 'single',
-      url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+      url: `redis://${process.env.REDIS_URL}`,
     }),
   ],
   // controllers: [], //nao utilizado aqui
