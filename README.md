@@ -3,7 +3,7 @@
 OBS: esse backend está finalizado, porem o desenvolvimento do frontend foi pausado por tempo indeterminado.
 
 ## Sobre o projeto
-Esse é um projeto divido em 2 partes, trata-se de um sistema de gerenciamento de reservas para hoteis.
+Esse é um projeto divido em 2 partes, trata-se de um sistema de gerenciamento de reservas para hoteis. Nesse projeto é possivel cadastrar hoteis, listar hoteis cadastrados, fazer reservas e consultar reservas.
 
 ## Dependencias adicionais:
 - npm i -g nestjs/cli
